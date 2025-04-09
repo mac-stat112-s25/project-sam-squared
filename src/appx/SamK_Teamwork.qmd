@@ -1,5 +1,13 @@
 ---
-title: "SamK_Teamwork"
+title: "Sam Kennedy - Effective Teamwork"
 format: html
 ---
 
+## Article
+
+  UC Berkeley, Steps to Building an Effective Team
+  https://hr.berkeley.edu/hr-network/central-guide-managing-hr/managing-hr/interaction/team-building/steps
+
+## Summary
+
+  When working in a team, it is important to make sure all team members have roles. This allows tasks and responsibilities to be delegated effectively between members. Creating roles also increases team cohesion, as each member understands how their work will effect the work of others. Additionally, good teamwork requires effective listening. This means making sure every team member feels heard and knows their ideas are valued. This also means being attuned to unspoken feelings or tensions within the team. Thirdly, team members should set rules and expectations for each other before starting a project. This will help the team avoid and resolve potential conflicts.
