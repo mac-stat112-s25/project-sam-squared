@@ -2,4 +2,4 @@
 title: "Case Study"
 ---
 
-Your case study will go here.
+We looked at the New York City Uber article as our case study. We found that the article was fascinating in how it seamlessly integrated the graphs into the text as well as using multiple different graph types such as line charts, scatter plots, and choropleth maps. The article is very effective at not overloading the reader with too many numbers and is very readable. We particularly liked the choropleth maps that showed how taxi services declined in some regions in New York. They also note flaws and potential mis-corolations the reader might make and correct their narrative. Overall, it’s interesting because they make a compelling argument about their data and why it matters in the grand scheme of competition in the taxi/ride industry. We hope to be able to mimic this in our project
