@@ -1,0 +1,31 @@
+---
+title: "SamK - Exploratory Data Analysis (EDA)"
+format: html
+---
+
+```{r}
+#| label: Initialize project
+#| warning: false
+library(tidyverse)
+library(here)
+```
+
+```{r}
+Invasive_Species <- read_csv(here("data", "Invasive_Species.csv"))
+View(Invasive_Species)
+```
+
+```{r}
+nrow(Invasive_Species) # Number of columns in data set
+ncol(Invasive_Species) # Number of rows in data set
+```
+
+```{r}
+# Summary of data set
+summary(Invasive_Species)
+```
+
+```{r}
+
+```
+
