@@ -21,11 +21,27 @@ ncol(Invasive_Species) # Number of rows in data set
 ```
 
 ```{r}
+Invasive_Species |>
+  ls()
+```
+
+```{r}
 # Summary of data set
 summary(Invasive_Species)
 ```
 
 ```{r}
-
+Invasive_Species |>
+  filter(!is.na(TreatmentType)) |>
+  ggplot(aes(x = TreatmentType)) +
+  geom_bar() +
+  labs(x = "Treatment type", title = "Treatment of invasive species in Vermont")
 ```
 
+```{r}
+Invasive_Species |>
+  mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate))) |>
+  ggplot(aes(x = year)) +
+  geom_bar() +
+  labs(x = "Year", title = "Invasive species encounters in Vermont (2007-2023)")
+```
