@@ -1,0 +1,89 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Invasive Species Encounters and Treatments in Vermont",
+    "section": "",
+    "text": "Your report will go here.\n\n# this is a test code",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Report</span>"
+    ]
+  },
+  {
+    "objectID": "src/appx/proposal.html",
+    "href": "src/appx/proposal.html",
+    "title": "Appendix A — Proposal",
+    "section": "",
+    "text": "Title: Invasive Species Encounters and Treatments in Vermont\nAuthors: Samuel Kennedy, Samuel Fackenthal\nDescription: We will focus on analyzing data on invasive species encounters in Vermont. we will focus on patterns of emergence for different invasive species as well as how they are treated based on species as well as by location.\nReasoning: We care about the health of the environment and want to spread awareness of government action being taken to protect forest ecosystems. We also want to better understand the methods used to combat invasive species encounters.\nImplementation plan:\n\ndf &lt;- data.frame(Date = c(\"April 9\", \"April 28\", \"May 5\"),\n                 Task = c(\"Project Proposal & Case Study\", \"Presentation\", \"Final Edits\"),\n                 Member = c(\"Both members\", \"Both members\", \"Both members\"))\n\nprint(df)\n\n      Date                          Task       Member\n1  April 9 Project Proposal & Case Study Both members\n2 April 28                  Presentation Both members\n3    May 5                   Final Edits Both members",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Proposal</span>"
+    ]
+  },
+  {
+    "objectID": "src/appx/case-study.html",
+    "href": "src/appx/case-study.html",
+    "title": "Appendix B — Case Study",
+    "section": "",
+    "text": "We looked at the New York City Uber article as our case study. We found that the article was fascinating in how it seamlessly integrated the graphs into the text as well as using multiple different graph types such as line charts, scatter plots, and choropleth maps. The article is very effective at not overloading the reader with too many numbers and is very readable. We particularly liked the choropleth maps that showed how taxi services declined in some regions in New York. They also note flaws and potential mis-correlations the reader might make and correct their narrative. Overall, it’s interesting because they make a compelling argument about their data and why it matters in the grand scheme of competition in the taxi/ride industry. We hope to be able to mimic this in our project",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Case Study</span>"
+    ]
+  },
+  {
+    "objectID": "src/appx/et/sam-k.html",
+    "href": "src/appx/et/sam-k.html",
+    "title": "Appendix C — Sam Kennedy - Effective Teamwork",
+    "section": "",
+    "text": "C.1 Article\nUC Berkeley, Steps to Building an Effective Team https://hr.berkeley.edu/hr-network/central-guide-managing-hr/managing-hr/interaction/team-building/steps",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Sam Kennedy - Effective Teamwork</span>"
+    ]
+  },
+  {
+    "objectID": "src/appx/et/sam-k.html#summary",
+    "href": "src/appx/et/sam-k.html#summary",
+    "title": "Appendix C — Sam Kennedy - Effective Teamwork",
+    "section": "C.2 Summary",
+    "text": "C.2 Summary\nWhen working in a team, it is important to make sure all team members have roles. This allows tasks and responsibilities to be delegated effectively between members. Creating roles also increases team cohesion, as each member understands how their work will effect the work of others. Additionally, good teamwork requires effective listening. This means making sure every team member feels heard and knows their ideas are valued. This also means being attuned to unspoken feelings or tensions within the team. Thirdly, team members should set rules and expectations for each other before starting a project. This will help the team avoid and resolve potential conflicts.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Sam Kennedy - Effective Teamwork</span>"
+    ]
+  },
+  {
+    "objectID": "src/appx/et/sam-f.html",
+    "href": "src/appx/et/sam-f.html",
+    "title": "Appendix D — SamF_Teamwork",
+    "section": "",
+    "text": "Title:Overview of the Research on Team Effectiveness\nCitation : Committee on the Science of Team Science; Board on Behavioral, Cognitive, and Sensory Sciences; Division of Behavioral and Social Sciences and Education; National Research Council; Cooke NJ, Hilton ML, editors. Enhancing the Effectiveness of Team Science. Washington (DC): National Academies Press (US); 2015 Jul 15. 3, Overview of the Research on Team Effectiveness. Available from: https://www.ncbi.nlm.nih.gov/books/NBK310384/\nSummary: This article is interesting in that it’s organized like a scientific article. It’s cool in that it describes and explains “simple” or “common sense” good teamwork aspects in a more scientific method. While the article focuses on Science research groups but should also apply in general. Main points include mental models, cognitive interactions, team climate and psychological safety. These points boil down to creating a space where people feel safe, respected, heard and free to take risks. The point being that people work best when comfortable. The rest of the article talks about Team Efficacy and how it’s effected by Team Cohesion and how to measure Team Effectiveness. This can be simplified to how teams work better when people do what they’re good at, don’t argue/ can resolve arguments well and then you can measure group effectiveness on. Mostly it’s about how much people get done and how they feel emotionally while getting it done. This article is interesting for focusing on rescearching team effectiveness.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>D</span>  <span class='chapter-title'>SamF_Teamwork</span>"
+    ]
+  },
+  {
+    "objectID": "src/appx/eda/sam-k.html",
+    "href": "src/appx/eda/sam-k.html",
+    "title": "Appendix E — SamK - Exploratory Data Analysis (EDA)",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(here)\nlibrary(rnaturalearth)\nlibrary(sf)\nlibrary(RColorBrewer)\nlibrary(viridisLite)\n\n\nInvasive_Species &lt;- read_csv(here(\"data\", \"Invasive_Species.csv\"))\n\nRows: 1078 Columns: 30\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (22): SiteName, InvasiveName, ObservationDate, Observer, SurveyType, Tow...\ndbl  (8): X, Y, ObservationID, Latitude, Longitude, GrossArea, InfestedArea,...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n\nnrow(Invasive_Species) # Number of columns in data set\n\n[1] 1078\n\nncol(Invasive_Species) # Number of rows in data set\n\n[1] 30\n\n\n\nInvasive_Species |&gt;\n  ls()\n\n [1] \"ApplicationMethod\"        \"AssessmentDate\"          \n [3] \"Assessor\"                 \"CertifiedApplicator\"     \n [5] \"ChemicalConsentration\"    \"ChemicalName\"            \n [7] \"ChemicalOunces\"           \"DistributionName\"        \n [9] \"EPARegistationNumber\"     \"GrossArea\"               \n[11] \"InfestedArea\"             \"InvasiveName\"            \n[13] \"Latitude\"                 \"Longitude\"               \n[15] \"ObservationDate\"          \"ObservationID\"           \n[17] \"Observer\"                 \"PlantDescription\"        \n[19] \"SiteName\"                 \"SurveyType\"              \n[21] \"Town\"                     \"TreatmentAssessmentDate\" \n[23] \"TreatmentAssessmentNotes\" \"TreatmentDate\"           \n[25] \"TreatmentEffectiveness\"   \"TreatmentHours\"          \n[27] \"TreatmentPerson\"          \"TreatmentType\"           \n[29] \"X\"                        \"Y\"                       \n\n\n\n# Summary of data set\nsummary(Invasive_Species)\n\n       X                Y            SiteName         ObservationID   \n Min.   :426562   Min.   : 25437   Length:1078        Min.   :  75.0  \n 1st Qu.:454260   1st Qu.: 85689   Class :character   1st Qu.: 381.5  \n Median :490864   Median :128876   Mode  :character   Median :2701.5  \n Mean   :487930   Mean   :141486                      Mean   :2023.4  \n 3rd Qu.:510930   3rd Qu.:201691                      3rd Qu.:2986.8  \n Max.   :569568   Max.   :279494                      Max.   :3302.0  \n                                                                      \n InvasiveName       ObservationDate      Observer          SurveyType       \n Length:1078        Length:1078        Length:1078        Length:1078       \n Class :character   Class :character   Class :character   Class :character  \n Mode  :character   Mode  :character   Mode  :character   Mode  :character  \n                                                                            \n                                                                            \n                                                                            \n                                                                            \n    Latitude       Longitude          Town             GrossArea       \n Min.   :42.73   Min.   :-73.42   Length:1078        Min.   :     0.0  \n 1st Qu.:43.27   1st Qu.:-73.07   Class :character   1st Qu.:     0.0  \n Median :43.66   Median :-72.61   Mode  :character   Median :     7.5  \n Mean   :43.77   Mean   :-72.65                      Mean   : 10946.8  \n 3rd Qu.:44.31   3rd Qu.:-72.36                      3rd Qu.:    75.0  \n Max.   :45.01   Max.   :-71.62                      Max.   :480000.0  \n                                                     NA's   :990       \n  InfestedArea    PlantDescription   DistributionName   AssessmentDate    \n Min.   :  0.00   Length:1078        Length:1078        Length:1078       \n 1st Qu.:  0.02   Class :character   Class :character   Class :character  \n Median :  0.26   Mode  :character   Mode  :character   Mode  :character  \n Mean   : 10.74                                                           \n 3rd Qu.:  4.15                                                           \n Max.   :800.00                                                           \n NA's   :812                                                              \n TreatmentDate      TreatmentEffectiveness TreatmentType     \n Length:1078        Length:1078            Length:1078       \n Class :character   Class :character       Class :character  \n Mode  :character   Mode  :character       Mode  :character  \n                                                             \n                                                             \n                                                             \n                                                             \n TreatmentPerson    TreatmentAssessmentDate   Assessor        \n Length:1078        Length:1078             Length:1078       \n Class :character   Class :character        Class :character  \n Mode  :character   Mode  :character        Mode  :character  \n                                                              \n                                                              \n                                                              \n                                                              \n TreatmentAssessmentNotes TreatmentHours    ChemicalName      \n Length:1078              Min.   :  0.000   Length:1078       \n Class :character         1st Qu.:  0.000   Class :character  \n Mode  :character         Median :  0.000   Mode  :character  \n                          Mean   :  3.558                     \n                          3rd Qu.:  0.500                     \n                          Max.   :120.000                     \n                          NA's   :947                         \n ChemicalConsentration ChemicalOunces     ApplicationMethod \n Length:1078           Length:1078        Length:1078       \n Class :character      Class :character   Class :character  \n Mode  :character      Mode  :character   Mode  :character  \n                                                            \n                                                            \n                                                            \n                                                            \n CertifiedApplicator EPARegistationNumber\n Length:1078         Length:1078         \n Class :character    Class :character    \n Mode  :character    Mode  :character    \n                                         \n                                         \n                                         \n                                         \n\n\n\nInvasive_Species |&gt;\n  filter(!is.na(TreatmentType)) |&gt;\n  mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate))) |&gt;\n  ggplot(aes(x = TreatmentType, fill = year)) +\n  geom_bar() +\n  labs(x = \"Treatment type\", title = \"Treatment of invasive species in Vermont\")\n\n\n\n\n\n\n\n\nInvasive_Species |&gt;\n  mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate))) |&gt;\n  ggplot(aes(x = year)) +\n  geom_bar() +\n  labs(x = \"Year\", title = \"Invasive species encounters in Vermont (2007-2023)\")\n\n\n\n\n\n\n\n\ninvasive_boundaries &lt;- read_sf(here(\"data/Invasive_Species_Shapefiles\", \"Invasive_Species.dbf\"))\n\n\n# Spatial point map of invasive species encounters\nggplot() +\n  geom_sf(data = invasive_boundaries)\n\n\n\n\n\n\n\n\nvt_boundaries &lt;- read_sf(here(\"data/VT_County_Shapefiles\", \"FS_VCGI_OPENDATA_Boundary_BNDHASH_poly_counties_SP_v1.dbf\"))\n\n\nggplot() +\n  geom_sf(data = vt_boundaries)",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>E</span>  <span class='chapter-title'>SamK - Exploratory Data Analysis (EDA)</span>"
+    ]
+  },
+  {
+    "objectID": "src/appx/eda/sam-f.html",
+    "href": "src/appx/eda/sam-f.html",
+    "title": "Appendix F — SamF_eda",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(here)\n\n\nInvasive_Species &lt;- read_csv(here(\"data\", \"Invasive_Species.csv\"))\n\nRows: 1078 Columns: 30\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (22): SiteName, InvasiveName, ObservationDate, Observer, SurveyType, Tow...\ndbl  (8): X, Y, ObservationID, Latitude, Longitude, GrossArea, InfestedArea,...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nView(Invasive_Species)\n\n# Invasive_Species_13  &lt;- Filter (Invasive_Species,\n\nInitial notes: (what to do this weekend)",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>F</span>  <span class='chapter-title'>SamF_eda</span>"
+    ]
+  }
+]
