@@ -16,7 +16,6 @@ library(viridisLite)
 
 ```{r}
 Invasive_Species <- read_csv(here("data", "Invasive_Species.csv"))
-View(Invasive_Species)
 ```
 
 ```{r}
@@ -37,7 +36,8 @@ summary(Invasive_Species)
 ```{r}
 Invasive_Species |>
   filter(!is.na(TreatmentType)) |>
-  ggplot(aes(x = TreatmentType)) +
+  mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate))) |>
+  ggplot(aes(x = TreatmentType, fill = year)) +
   geom_bar() +
   labs(x = "Treatment type", title = "Treatment of invasive species in Vermont")
 ```

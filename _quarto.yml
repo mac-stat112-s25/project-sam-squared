@@ -41,10 +41,10 @@ book:
   appendices:
     - src/appx/proposal.qmd
     - src/appx/case-study.qmd
-    - src/appx/SamK_Teamwork.qmd
-    - src/appx/SamF_Teamwork.qmd
-    - src/appx/EDA/SamK_eda.qmd
-    - src/appx/EDA/SamF_eda.qmd
+    - src/appx/Teamwork/sam-k.qmd
+    - src/appx/Teamwork/sam-f.qmd
+    - src/appx/EDA/sam-k.qmd
+    - src/appx/EDA/sam-f.qmd
 
 
 format:
