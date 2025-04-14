@@ -8,6 +8,10 @@ format: html
 #| warning: false
 library(tidyverse)
 library(here)
+library(rnaturalearth)
+library(sf)
+library(RColorBrewer)
+library(viridisLite)
 ```
 
 ```{r}
@@ -45,3 +49,23 @@ Invasive_Species |>
   geom_bar() +
   labs(x = "Year", title = "Invasive species encounters in Vermont (2007-2023)")
 ```
+
+```{r}
+invasive_boundaries <- read_sf(here("data/Invasive_Species_Shapefiles", "Invasive_Species.dbf"))
+```
+
+```{r}
+# Spatial point map of invasive species encounters
+ggplot() +
+  geom_sf(data = invasive_boundaries)
+```
+
+```{r}
+vt_boundaries <- read_sf(here("data/VT_County_Shapefiles", "FS_VCGI_OPENDATA_Boundary_BNDHASH_poly_counties_SP_v1.dbf"))
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = vt_boundaries)
+```
+
