@@ -51,6 +51,13 @@ Invasive_Species |>
 ```
 
 ```{r}
+# List of all invasive species recorded in data set
+Invasive_Species |>
+  select(InvasiveName) |>
+  distinct()
+```
+
+```{r}
 invasive_boundaries <- read_sf(here("data/Invasive_Species_Shapefiles", "Invasive_Species.dbf"))
 ```
 

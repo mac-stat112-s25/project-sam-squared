@@ -1,0 +1,77 @@
+---
+title: "Invasive Species Encounters and Treatments in Vermont"
+format: html
+---
+
+```{r}
+#| label: Initialize project
+#| warning: false
+#| code-fold: true
+library(tidyverse)
+library(here)
+library(rnaturalearth)
+library(sf)
+library(RColorBrewer)
+library(viridisLite)
+```
+
+```{r}
+Invasive_Species <- read_csv(here("data", "Invasive_Species.csv"))
+# Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab
+```
+
+```{r}
+Invasive_Species_2013 <- Invasive_Species |>
+  mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate))) |>
+  filter(year == "2013")
+```
+
+## Introduction
+
+This project utilizes data from the Vermont Center for Geographic Information (VCGI). 
+
+As of publishing, the data is hosted at this link:
+https://catalog.data.gov/dataset/invasive-species-812ab 
+
+## Understanding invasive species
+
+```{r}
+Invasive_Species_2013 |>
+  ggplot(aes(x = InvasiveName)) +
+  geom_bar() +
+  coord_flip() +
+  labs(x = "Invasive species name", y = "Count")
+```
+
+```{r}
+TopInvasive <- Invasive_Species_2013 |>
+  group_by(InvasiveName) |>
+  count() |>
+  filter(n > 6)
+
+TopInvasive_2013 <- Invasive_Species_2013 |>
+  inner_join(TopInvasive, by = join_by(InvasiveName))
+```
+
+```{r}
+invasive_boundaries <- read_sf(here("data/Invasive_Species_Shapefiles", "Invasive_Species.dbf"))
+```
+
+```{r}
+# Shapemap of Vermont counties
+vt_boundaries <- read_sf(here("data/VT_County_Shapefiles", "FS_VCGI_OPENDATA_Boundary_BNDHASH_poly_counties_SP_v1.dbf"))
+```
+
+```{r}
+# Spatial point map of invasive species encounters
+invasive_boundaries |>
+  mutate(GrossArea = as.numeric(GrossArea)) |>
+  inner_join(TopInvasive_2013) |>
+  ggplot() +
+  geom_sf(data = vt_boundaries) +
+  geom_sf(aes(color = InvasiveNa),
+          size = 3,
+          alpha = 0.5) +
+  labs(color = "Invasive species", y = "Latitude", x = "Longitude") +
+  scale_color_viridis_d()
+```
