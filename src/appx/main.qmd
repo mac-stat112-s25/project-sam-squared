@@ -58,6 +58,14 @@ Top_Invasive_Species |>
 
 TODO: Explain Hemlock Woolly Adelgid
 
+```{r}
+Top_Invasive_Species |>
+  filter(InvasiveName == "Hemlock Woolly Adelgid") |>
+  ggplot(aes(x = year)) +
+  geom_bar(color = "black") +
+  coord_flip() +
+  labs(x = "Hemlock Woolly Adelgid sightings", y = "Count", fill = "Species")
+```
 
 ```{r}
 invasive_boundaries <- read_sf(here("data/Invasive_Species_Shapefiles", "Invasive_Species.dbf"))
@@ -82,7 +90,7 @@ invasive_boundaries |>
   geom_sf(aes(color = year),
           size = 3,
           alpha = 0.5) +
-  labs(title = "Hemlock Woolly Adelgid sightings in Vermont", color = "Invasive species", y = "Latitude", x = "Longitude") +
+  labs(title = "Hemlock sightings in Vermont, 2013", color = "Invasive species", y = "Latitude", x = "Longitude") +
   scale_color_viridis_d()
 ```
 

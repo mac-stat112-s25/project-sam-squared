@@ -63,6 +63,7 @@ format:
     code-copy: true
     code-link: true
     code-line-numbers: true
+    code-fold: true
     code-block-bg: true
     code-block-border-left: "#1482FA"
     code-tools: true
