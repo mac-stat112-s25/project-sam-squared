@@ -2,4 +2,19 @@
 title: "Proposal"
 ---
 
-Your proposal will go here.
+Title: Invasive Species Encounters and Treatments in Vermont
+
+Authors: Samuel Kennedy, Samuel Fackenthal
+
+Description: We will focus on analyzing data on invasive species encounters in Vermont. we will focus on patterns of emergence for different invasive species as well as how they are treated based on species as well as by location.
+
+Reasoning: We care about the health of the environment and want to spread awareness of government action being taken to protect forest ecosystems. We also want to better understand the methods used to combat invasive species encounters.
+
+Implementation plan: 
+```{r}
+df <- data.frame(Date = c("April 9", "April 28", "May 5"),
+                 Task = c("Project Proposal & Case Study", "Presentation", "Final Edits"),
+                 Member = c("Both members", "Both members", "Both members"))
+
+print(df)
+```
