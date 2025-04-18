@@ -20,12 +20,6 @@ Invasive_Species <- read_csv(here("data", "Invasive_Species.csv"))
 # Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab
 ```
 
-```{r}
-Invasive_Species_2013 <- Invasive_Species |>
-  mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate))) |>
-  filter(year == "2013")
-```
-
 ## Introduction
 
 This project utilizes data from the Vermont Center for Geographic Information (VCGI). 
@@ -36,7 +30,7 @@ https://catalog.data.gov/dataset/invasive-species-812ab
 ## Understanding invasive species
 
 ```{r}
-Invasive_Species_2013 |>
+Invasive_Species |>
   ggplot(aes(x = InvasiveName)) +
   geom_bar() +
   coord_flip() +
@@ -44,14 +38,26 @@ Invasive_Species_2013 |>
 ```
 
 ```{r}
-TopInvasive <- Invasive_Species_2013 |>
+TopInvasive <- Invasive_Species |>
   group_by(InvasiveName) |>
   count() |>
   filter(n > 6)
 
-TopInvasive_2013 <- Invasive_Species_2013 |>
-  inner_join(TopInvasive, by = join_by(InvasiveName))
+Top_Invasive_Species <- Invasive_Species |>
+  inner_join(TopInvasive, by = join_by(InvasiveName)) |>
+  mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate)))
 ```
+
+```{r}
+Top_Invasive_Species |>
+  ggplot(aes(x = PlantDescription, fill = InvasiveName)) +
+  geom_bar(color = "black") +
+  coord_flip() +
+  labs(x = "Plant description", y = "Count", fill = "Species")
+```
+
+TODO: Explain Hemlock Woolly Adelgid
+
 
 ```{r}
 invasive_boundaries <- read_sf(here("data/Invasive_Species_Shapefiles", "Invasive_Species.dbf"))
@@ -63,15 +69,23 @@ vt_boundaries <- read_sf(here("data/VT_County_Shapefiles", "FS_VCGI_OPENDATA_Bou
 ```
 
 ```{r}
+#ADD ALT TEXT
+#ADD CAPTION
+
 # Spatial point map of invasive species encounters
 invasive_boundaries |>
   mutate(GrossArea = as.numeric(GrossArea)) |>
-  inner_join(TopInvasive_2013) |>
+  inner_join(Top_Invasive_Species) |>
+  filter(InvasiveNa == "Hemlock Woolly Adelgid") |>
   ggplot() +
   geom_sf(data = vt_boundaries) +
-  geom_sf(aes(color = InvasiveNa),
+  geom_sf(aes(color = year),
           size = 3,
           alpha = 0.5) +
-  labs(color = "Invasive species", y = "Latitude", x = "Longitude") +
+  labs(title = "Hemlock Woolly Adelgid sightings in Vermont", color = "Invasive species", y = "Latitude", x = "Longitude") +
   scale_color_viridis_d()
 ```
+
+
+
+
