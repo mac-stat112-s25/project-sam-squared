@@ -37,7 +37,7 @@ Invasive_Species |>
   ggplot(aes(x = InvasiveName)) +
   geom_bar() +
   coord_flip() +
-  labs(x = "Invasive species name", y = "Number of Recorded Sightings", title = "Distribution of invasive species sightings in Vermont (2007-2023)")
+  labs(x = "Invasive species name", y = "Number of recorded sightings", title = "Distribution of invasive species sightings in Vermont (2007-2023)")
 ```
 
 ## What is Hemlock Wooly Adelgid?
@@ -106,9 +106,11 @@ invasive_boundaries |>
   labs(title = "Hemlock Woolly Adelgid sightings in Vermont", color = "Invasive species", y = "Latitude", x = "Longitude") +
   scale_color_viridis_d()
 ```
-As this map makes clear, Hemlock Woolly Adelgid sightings were highly concentrated in Windham County until 2020. Since then, it has been spotted in various locations across the state. This is due to a large infestation of HWA in Massachusetts which borders the County. This follows the known history that HWA landed in southern New England on the winds of a hurricane in 1980 from more southern states
+As this map makes clear, Hemlock Woolly Adelgid sightings were highly concentrated in Windham County until 2020. Since then, it has been spotted in various locations across the state. This is likely due to a large infestation of HWA in Massachusetts which borders the county. According to an article by the University of Massachusetts (linked below), HWA landed in southern New England on the winds of a hurricane in 1980 from more southern states. It would make sense, then, that HWA reached Vermont by first travelling north through Massachusetts.
 
-cite:https://www.umass.edu/agriculture-food-environment/landscape/fact-sheets/hemlock-woolly-adelgid-frequently-asked-questions
+Article link: https://www.umass.edu/agriculture-food-environment/landscape/fact-sheets/hemlock-woolly-adelgid-frequently-asked-questions
+
+## How can we spot HWA?
 
 ```{r}
 HWA_invasive  <- Top_Invasive_Species|>
@@ -116,10 +118,13 @@ filter(InvasiveName == "Hemlock Woolly Adelgid")
 ```
 
 ```{r}
-# COMMENT on the change in the code and the corresponding change in the plot
-HWA_invasive|>
-  count()
+#| fig-width: 10
 
-
+HWA_invasive |>
+  ggplot(aes(x = SurveyType)) +
+  geom_bar() +
+  labs(title = "Hemlock Woolly Adelgid sightings by survey type", x = "Survey type", y = "Number of surveys")
 ```
+Though we do not have data on the success rates of each survey type, we can assume that visual survey is a relatively effective survey type based on how many HWA have been spotted by using this method.
 
+In order to track future HWA outbreaks, the Vermont state government should continue to fund visual surveys of HWA across the entire state.
