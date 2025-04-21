@@ -58,7 +58,7 @@ Top_Invasive_Species |>
   ggplot(aes(x = PlantDescription, fill = InvasiveName)) +
   geom_bar(color = "black") +
   coord_flip() +
-  labs(x = "Plant description", y = "Count", fill = "Species")
+  labs(x = "Plant description", y = "Number of sightings", fill = "Species")
 ```
 
 As you can see, Hemlock Woolly Adelgid, or HWA, is categorized under the label "NA." This is because it isn't a plant at all! HWA is actually an aphid-like insect native to East Asia. According to the Vermont Department of Forests, Parks and Recreation, HWA can infest and kill native Eastern Hemlock trees, wreaking havoc on local ecosystems. HWA uses its long mouthparts to suck out a tree's starches, preventing the tree from delivering nutrients to its branches and needles.
@@ -75,7 +75,7 @@ Top_Invasive_Species |>
   ggplot(aes(x = year)) +
   geom_bar(color = "black") +
   coord_flip() +
-  labs(x = "Hemlock Woolly Adelgid sightings", y = "Count", fill = "Species")
+  labs(x = "Hemlock Woolly Adelgid sightings", y = "Number of Sightings", fill = "Species")
 ```
 
 ## Mapping Hemlock Woolly Adegild sightings
@@ -106,6 +106,20 @@ invasive_boundaries |>
   labs(title = "Hemlock Woolly Adelgid sightings in Vermont", color = "Invasive species", y = "Latitude", x = "Longitude") +
   scale_color_viridis_d()
 ```
-As this map makes clear, Hemlock Woolly Adelgid sightings were highly concentrated in Windham County until 2020. Since then, it has been spotted in various locations across the state. This is due to a large infestation of HWA in Massachusetts which borders the County.
+As this map makes clear, Hemlock Woolly Adelgid sightings were highly concentrated in Windham County until 2020. Since then, it has been spotted in various locations across the state. This is due to a large infestation of HWA in Massachusetts which borders the County. This follows the known history that HWA landed in southern New England on the winds of a hurricane in 1980 from more southern states
 
+cite:https://www.umass.edu/agriculture-food-environment/landscape/fact-sheets/hemlock-woolly-adelgid-frequently-asked-questions
+
+```{r}
+HWA_invasive  <- Top_Invasive_Species|>
+filter(InvasiveName == "Hemlock Woolly Adelgid") 
+```
+
+```{r}
+# COMMENT on the change in the code and the corresponding change in the plot
+HWA_invasive|>
+  count()
+
+
+```
 
