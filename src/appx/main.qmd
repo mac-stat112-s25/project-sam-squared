@@ -37,7 +37,7 @@ Invasive_Species |>
   ggplot(aes(x = InvasiveName)) +
   geom_bar() +
   coord_flip() +
-  labs(x = "Invasive species name", y = "Count", title = "Distribution of invasive species sightings in Vermont (2007-2023)")
+  labs(x = "Invasive species name", y = "Number of Recorded Sightings", title = "Distribution of invasive species sightings in Vermont (2007-2023)")
 ```
 
 ## What is Hemlock Wooly Adelgid?
@@ -106,6 +106,6 @@ invasive_boundaries |>
   labs(title = "Hemlock Woolly Adelgid sightings in Vermont", color = "Invasive species", y = "Latitude", x = "Longitude") +
   scale_color_viridis_d()
 ```
-As this map makes clear, Hemlock Woolly Adelgid sightings were highly concentrated in Windham County until 2020. Since then, it has been spotted in various locations across the state. This is due to a large investation of HWA in Massachusets which borders the County.
+As this map makes clear, Hemlock Woolly Adelgid sightings were highly concentrated in Windham County until 2020. Since then, it has been spotted in various locations across the state. This is due to a large infestation of HWA in Massachusetts which borders the County.
 
 
