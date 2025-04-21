@@ -30,6 +30,9 @@ https://catalog.data.gov/dataset/invasive-species-812ab
 ## Understanding invasive species
 
 ```{r}
+#| fig-alt: "A bar graph showing the distribution of invasive species sightings by species name in Vermont from 2007 to 2023. The number of Hemlock Woolly Adelgid sightings far exceeds the count for every other species."
+#| fig-cap: "Bar graph of Vermont invasive species sightings by species name. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"
+
 Invasive_Species |>
   ggplot(aes(x = InvasiveName)) +
   geom_bar() +
