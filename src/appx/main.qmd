@@ -108,3 +108,4 @@ invasive_boundaries |>
 ```
 As this map makes clear, Hemlock Woolly Adelgid sightings were highly concentrated in Windham County until 2020. Since then, it has been spotted in various locations across the state.
 
+
