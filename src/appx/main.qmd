@@ -123,7 +123,7 @@ filter(InvasiveName == "Hemlock Woolly Adelgid")
 HWA_invasive |>
   ggplot(aes(x = SurveyType)) +
   geom_bar() +
-  labs(title = "Hemlock Woolly Adelgid sightings by survey type", x = "Survey type", y = "Number of surveys")
+  labs(title = "Hemlock Woolly Adelgid Sightings by Survey Type", x = "Survey Type", y = "Number of Surveys")
 ```
 Though we do not have data on the success rates of each survey type, we can assume that visual survey is a relatively effective survey type based on how many HWA have been spotted by using this method.
 
