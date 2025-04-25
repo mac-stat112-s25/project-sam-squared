@@ -1,0 +1,51 @@
+---
+title: "Process for understanding data"
+format: html
+code-fold: false
+---
+
+The following page details our process for wrangling the data to create the graphs present in our report.
+
+```{r}
+#| label: Initialize project
+#| warning: false
+library(tidyverse)
+library(here)
+library(rnaturalearth)
+library(sf)
+library(RColorBrewer)
+library(viridisLite)
+```
+
+
+Importing the original data set
+```{r}
+Invasive_Species <- read_csv(here("data", "Invasive_Species.csv"))
+# Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab
+```
+
+Creating a list of the invasive species that are most represented in the original data set
+```{r}
+TopInvasive <- Invasive_Species |>
+  group_by(InvasiveName) |>
+  count() |>
+  filter(n > 6)
+```
+
+```{r}
+Top_Invasive_Species <- Invasive_Species |>
+  inner_join(TopInvasive, by = join_by(InvasiveName)) |>
+  mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate)))
+```
+
+```{r}
+invasive_boundaries <- read_sf(here("data/Invasive_Species_Shapefiles", "Invasive_Species.dbf"))
+```
+
+```{r}
+invasive_boundaries |>
+  mutate(GrossArea = as.numeric(GrossArea)) |>
+  inner_join(Top_Invasive_Species) |>
+  filter(InvasiveNa == "Hemlock Woolly Adelgid")
+```
+

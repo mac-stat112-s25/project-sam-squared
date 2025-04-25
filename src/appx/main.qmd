@@ -104,7 +104,8 @@ invasive_boundaries |>
           size = 3,
           alpha = 0.5) +
   labs(title = "Hemlock Woolly Adelgid sightings in Vermont", color = "Invasive species", y = "Latitude", x = "Longitude") +
-  scale_color_viridis_d()
+  scale_color_viridis_d() +
+  theme_void()
 ```
 As this map makes clear, Hemlock Woolly Adelgid sightings were highly concentrated in Windham County until 2020. Since then, it has been spotted in various locations across the state. This is likely due to a large infestation of HWA in Massachusetts which borders the county. According to an article by the University of Massachusetts (linked below), HWA landed in southern New England on the winds of a hurricane in 1980 from more southern states. It would make sense, then, that HWA reached Vermont by first travelling north through Massachusetts.
 
