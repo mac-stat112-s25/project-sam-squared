@@ -90,7 +90,7 @@ vt_boundaries <- read_sf(here("data/VT_County_Shapefiles", "FS_VCGI_OPENDATA_Bou
 ```
 
 ```{r}
-#ADD ALT TEXT
+#ADD ALT TEXT (something like  scatter plot of vermont with colored dots deliniating time of sighting, there is a concentration of dots noting earlier sightings in south eastern Vermont and later dots showing spread to rest of Vermont.)
 #ADD CAPTION
 
 # Spatial point map of invasive species encounters
@@ -103,7 +103,7 @@ invasive_boundaries |>
   geom_sf(aes(color = year),
           size = 3,
           alpha = 0.5) +
-  labs(title = "Hemlock Woolly Adelgid sightings in Vermont", color = "Invasive species", y = "Latitude", x = "Longitude") +
+  labs(title = "Hemlock Woolly Adelgid sightings in Vermont", color = "Invasive species", y = "Latitude", x = "Longitude", subtitle = "Individual sightings over time") +
   scale_color_viridis_d() +
   theme_void()
 ```
