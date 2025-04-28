@@ -1,5 +1,5 @@
 ---
-title: "Invasive Species Encounters and Treatments in Vermont"
+title: "Invasive Species Encounters in Vermont (2007-2023)"
 format: html
 ---
 
