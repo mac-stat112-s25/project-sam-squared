@@ -54,6 +54,8 @@ Top_Invasive_Species <- Invasive_Species |>
 ```
 
 ```{r}
+#| fig-cap: "Bar graph of invasive species sightings in Vermont, categorized by 'plant description' and colored by species. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"
+
 Top_Invasive_Species |>
   ggplot(aes(x = PlantDescription, fill = InvasiveName)) +
   geom_bar(color = "black") +
@@ -70,6 +72,8 @@ https://fpr.vermont.gov/sites/fpr/files/Forest_and_Forestry/Forest_Health/Librar
 https://dec.ny.gov/nature/animals-fish-plants/insects-and-other-species/hemlock-woolly-adelgid 
 
 ```{r}
+#| fig-cap: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by year. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"
+
 Top_Invasive_Species |>
   filter(InvasiveName == "Hemlock Woolly Adelgid") |>
   ggplot(aes(x = year)) +
@@ -90,8 +94,8 @@ vt_boundaries <- read_sf(here("data/VT_County_Shapefiles", "FS_VCGI_OPENDATA_Bou
 ```
 
 ```{r}
-#ADD ALT TEXT
-#ADD CAPTION
+#| fig-alt: "A point map showing Hemlock Woolly Adelgid sightings in Vermont. The points are colored based on the year of sighting. From 2007-2019, HWA was only found in the southeast corner of Vermont. Since 2020, however, HWA has been spotted at various locations across the entire state."
+#| fig-cap: "Point map of Hemlock Woolly Adelgid sightings in Vermont (2007-2023). Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"
 
 # Spatial point map of invasive species encounters
 invasive_boundaries |>
@@ -120,6 +124,7 @@ filter(InvasiveName == "Hemlock Woolly Adelgid")
 
 ```{r}
 #| fig-width: 10
+#| fig-cap: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by survey type. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"
 
 HWA_invasive |>
   ggplot(aes(x = SurveyType)) +
