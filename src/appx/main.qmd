@@ -124,6 +124,7 @@ filter(InvasiveName == "Hemlock Woolly Adelgid")
 
 ```{r}
 #| fig-width: 10
+#| fig-alt: "A bar graph showing Hemlock Woolly Adelgid sightings, categorized by survey type. The vast majority of HWA is found through visual surveys. The second most-represented category is 'Unspecificed,' meaning no survey type was recorded in the invasive species sighting report."
 #| fig-cap: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by survey type. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"
 
 HWA_invasive |>
