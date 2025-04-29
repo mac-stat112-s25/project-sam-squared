@@ -1,13 +1,140 @@
 ---
-title: "Report"
-execute: 
-  echo: true      # change to true to show the code
-code-fold: false  # change to true to fold the code chunks
+title: "Invasive Species Encounters in Vermont (2007-2023)"
+format: html
 ---
 
-Your report will go here.
-
 ```{r}
-# this is a test code
+#| label: Initialize project
+#| warning: false
+#| code-fold: true
+library(tidyverse)
+library(here)
+library(rnaturalearth)
+library(sf)
+library(RColorBrewer)
+library(viridisLite)
 ```
 
+```{r}
+Invasive_Species <- read_csv(here("data", "Invasive_Species.csv"))
+# Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab
+```
+
+## Introduction
+
+The goal of this project is to understand invasive species trends in Vermont and identify certain species that may be causing the most harm to native ecosystems.
+
+This project utilizes data from the Vermont Center for Geographic Information (VCGI). 
+
+As of publishing, the data is hosted at this link:
+https://catalog.data.gov/dataset/invasive-species-812ab 
+
+## Understanding invasive species
+
+```{r}
+#| fig-alt: "A bar graph showing the distribution of invasive species sightings by species name in Vermont from 2007 to 2023. The number of Hemlock Woolly Adelgid sightings far exceeds the count for every other species."
+#| fig-cap: "Bar graph of Vermont invasive species sightings by species name. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"
+
+Invasive_Species |>
+  ggplot(aes(x = InvasiveName)) +
+  geom_bar() +
+  coord_flip() +
+  labs(x = "Invasive species name", y = "Number of recorded sightings", title = "Distribution of invasive species sightings in Vermont (2007-2023)")
+```
+
+## What is Hemlock Wooly Adelgid?
+
+```{r}
+TopInvasive <- Invasive_Species |>
+  group_by(InvasiveName) |>
+  count() |>
+  filter(n > 6)
+
+Top_Invasive_Species <- Invasive_Species |>
+  inner_join(TopInvasive, by = join_by(InvasiveName)) |>
+  mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate)))
+```
+
+```{r}
+#| fig-alt: "Bar graph of invasive species sightings in Vermont, categorized by 'plant description' and colored by species. 'NA' is the largest category. 'Hemlock Woolly Adelgild' is the most represented species, and it belongs to the 'NA' category."
+#| fig-cap: "Bar graph of invasive species sightings in Vermont, categorized by 'plant description' and colored by species. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"
+
+Top_Invasive_Species |>
+  ggplot(aes(x = PlantDescription, fill = InvasiveName)) +
+  geom_bar(color = "black") +
+  coord_flip() +
+  labs(x = "Plant description", y = "Number of sightings", fill = "Species")
+```
+
+As you can see, Hemlock Woolly Adelgid, or HWA, is categorized under the label "NA." This is because it isn't a plant at all! HWA is actually an aphid-like insect native to East Asia. According to the Vermont Department of Forests, Parks and Recreation, HWA can infest and kill native Eastern Hemlock trees, wreaking havoc on local ecosystems. HWA uses its long mouthparts to suck out a tree's starches, preventing the tree from delivering nutrients to its branches and needles.
+
+Eastern Hemlock trees are important to North American ecosystems for a number of reasons. The evergreen trees act as year-round shelters for a variety of species, from lichens on the forest floor to warblers and owls in the canopy. Local deer and moose populations also rely on hemlock needles for nutrition. Additionally, the trees' thick foliage create shade, helping regulate temperatures in terrestrial and aquatic environments.
+
+Further reading:
+https://fpr.vermont.gov/sites/fpr/files/Forest_and_Forestry/Forest_Health/Library/VTFPR_HWAinVT_RecommendationsforLandownerResponse.pdf 
+https://dec.ny.gov/nature/animals-fish-plants/insects-and-other-species/hemlock-woolly-adelgid 
+
+```{r}
+#| fig-alt: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by year. The majority of HWA sightings occurred in 2012, 2016, 2017, 2020, and 2022."
+#| fig-cap: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by year. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"
+
+Top_Invasive_Species |>
+  filter(InvasiveName == "Hemlock Woolly Adelgid") |>
+  ggplot(aes(x = year)) +
+  geom_bar(color = "black") +
+  labs(x = "Hemlock Woolly Adelgid sightings", y = "Number of Sightings", fill = "Species")
+```
+
+## Mapping Hemlock Woolly Adegild sightings
+
+```{r}
+invasive_boundaries <- read_sf(here("data/Invasive_Species_Shapefiles", "Invasive_Species.dbf"))
+```
+
+```{r}
+# Shapemap of Vermont counties
+vt_boundaries <- read_sf(here("data/VT_County_Shapefiles", "FS_VCGI_OPENDATA_Boundary_BNDHASH_poly_counties_SP_v1.dbf"))
+```
+
+```{r}
+#| fig-alt: "A point map showing Hemlock Woolly Adelgid sightings in Vermont. The points are colored based on the year of sighting. From 2007-2019, HWA was only found in the southeast corner of Vermont. Since 2020, however, HWA has been spotted at various locations across the entire state."
+#| fig-cap: "Point map of Hemlock Woolly Adelgid sightings in Vermont (2007-2023). Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"
+
+# Spatial point map of invasive species encounters
+invasive_boundaries |>
+  mutate(GrossArea = as.numeric(GrossArea)) |>
+  inner_join(Top_Invasive_Species) |>
+  filter(InvasiveNa == "Hemlock Woolly Adelgid") |>
+  ggplot() +
+  geom_sf(data = vt_boundaries) +
+  geom_sf(aes(color = year),
+          size = 3,
+          alpha = 0.5) +
+  labs(title = "Hemlock Woolly Adelgid sightings in Vermont", color = "Invasive species", y = "Latitude", x = "Longitude", subtitle = "Individual sightings over time") +
+  scale_color_viridis_d() +
+  theme_void()
+```
+As this map makes clear, Hemlock Woolly Adelgid sightings were highly concentrated in Windham County until 2020. Since then, it has been spotted in various locations across the state. This is likely due to a large infestation of HWA in Massachusetts which borders the county. According to an article by the University of Massachusetts (linked below), HWA landed in southern New England on the winds of a hurricane in 1980 from more southern states. It would make sense, then, that HWA reached Vermont by first travelling north through Massachusetts.
+
+Article link: https://www.umass.edu/agriculture-food-environment/landscape/fact-sheets/hemlock-woolly-adelgid-frequently-asked-questions
+
+## How can we spot HWA?
+
+```{r}
+HWA_invasive  <- Top_Invasive_Species|>
+filter(InvasiveName == "Hemlock Woolly Adelgid") 
+```
+
+```{r}
+#| fig-width: 10
+#| fig-alt: "A bar graph showing Hemlock Woolly Adelgid sightings, categorized by survey type. The vast majority of HWA is found through visual surveys. The second most-represented category is 'Unspecificed,' meaning no survey type was recorded in the invasive species sighting report."
+#| fig-cap: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by survey type. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"
+
+HWA_invasive |>
+  ggplot(aes(x = SurveyType)) +
+  geom_bar(color = "black") +
+  labs(title = "Hemlock Woolly Adelgid Sightings by Survey Type", x = "Survey Type", y = "Number of Surveys")
+```
+Though we do not have data on the success rates of each survey type, we can assume that visual survey is a relatively effective survey type based on how many HWA have been spotted by using this method.
+
+In order to track future HWA outbreaks, the Vermont state government should continue to fund visual surveys of HWA across the entire state.
