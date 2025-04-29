@@ -32,16 +32,19 @@ TopInvasive <- Invasive_Species |>
   filter(n > 6)
 ```
 
+Joining that list with the main data set and adding a "year" column
 ```{r}
 Top_Invasive_Species <- Invasive_Species |>
   inner_join(TopInvasive, by = join_by(InvasiveName)) |>
   mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate)))
 ```
 
+Importing data set shape map
 ```{r}
 invasive_boundaries <- read_sf(here("data/Invasive_Species_Shapefiles", "Invasive_Species.dbf"))
 ```
 
+Joining shape map with Top_Invasive_Species data set and filtering for Hemlock Woolly Adelgid (HWA)
 ```{r}
 invasive_boundaries |>
   mutate(GrossArea = as.numeric(GrossArea)) |>
