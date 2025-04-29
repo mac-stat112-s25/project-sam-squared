@@ -22,6 +22,8 @@ Invasive_Species <- read_csv(here("data", "Invasive_Species.csv"))
 
 ## Introduction
 
+The goal of this project is to understand invasive species trends in Vermont and identify certain species that may be causing the most harm to native ecosystems.
+
 This project utilizes data from the Vermont Center for Geographic Information (VCGI). 
 
 As of publishing, the data is hosted at this link:
@@ -54,6 +56,7 @@ Top_Invasive_Species <- Invasive_Species |>
 ```
 
 ```{r}
+#| fig-alt: "Bar graph of invasive species sightings in Vermont, categorized by 'plant description' and colored by species. 'NA' is the largest category. 'Hemlock Woolly Adelgild' is the most represented species, and it belongs to the 'NA' category."
 #| fig-cap: "Bar graph of invasive species sightings in Vermont, categorized by 'plant description' and colored by species. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"
 
 Top_Invasive_Species |>
@@ -72,13 +75,13 @@ https://fpr.vermont.gov/sites/fpr/files/Forest_and_Forestry/Forest_Health/Librar
 https://dec.ny.gov/nature/animals-fish-plants/insects-and-other-species/hemlock-woolly-adelgid 
 
 ```{r}
+#| fig-alt: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by year. The majority of HWA sightings occurred in 2012, 2016, 2017, 2020, and 2022."
 #| fig-cap: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by year. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"
 
 Top_Invasive_Species |>
   filter(InvasiveName == "Hemlock Woolly Adelgid") |>
   ggplot(aes(x = year)) +
   geom_bar(color = "black") +
-  coord_flip() +
   labs(x = "Hemlock Woolly Adelgid sightings", y = "Number of Sightings", fill = "Species")
 ```
 
@@ -129,7 +132,7 @@ filter(InvasiveName == "Hemlock Woolly Adelgid")
 
 HWA_invasive |>
   ggplot(aes(x = SurveyType)) +
-  geom_bar() +
+  geom_bar(color = "black") +
   labs(title = "Hemlock Woolly Adelgid Sightings by Survey Type", x = "Survey Type", y = "Number of Surveys")
 ```
 Though we do not have data on the success rates of each survey type, we can assume that visual survey is a relatively effective survey type based on how many HWA have been spotted by using this method.
