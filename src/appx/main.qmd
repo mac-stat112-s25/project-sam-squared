@@ -54,11 +54,14 @@ Top_Invasive_Species <- Invasive_Species |>
 ```
 
 ```{r}
+#| fig-alt: "Stacked bar graph of invasive species in Vermont based on what condition the species was found in notably NA is most prevelant with Hemlock Wolly Adelgid being most prevelant in NA." 
 #| fig-cap: "Bar graph of invasive species sightings in Vermont, categorized by 'plant description' and colored by species. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"
+
 
 Top_Invasive_Species |>
   ggplot(aes(x = PlantDescription, fill = InvasiveName)) +
   geom_bar(color = "black") +
+  ggtitle("Invasive Species Encounters by Life Stage")
   coord_flip() +
   labs(x = "Plant description", y = "Number of sightings", fill = "Species")
 ```
@@ -72,12 +75,14 @@ https://fpr.vermont.gov/sites/fpr/files/Forest_and_Forestry/Forest_Health/Librar
 https://dec.ny.gov/nature/animals-fish-plants/insects-and-other-species/hemlock-woolly-adelgid 
 
 ```{r}
+#| fig-alt: " Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by year with notable spikes in 2022 and 2016" 
 #| fig-cap: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by year. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"
 
 Top_Invasive_Species |>
   filter(InvasiveName == "Hemlock Woolly Adelgid") |>
   ggplot(aes(x = year)) +
   geom_bar(color = "black") +
+  ggtitle("Hemlock Woolly Adelgid Sightings in Vermont from 2007-2023") +
   coord_flip() +
   labs(x = "Hemlock Woolly Adelgid sightings", y = "Number of Sightings", fill = "Species")
 ```
@@ -124,7 +129,9 @@ filter(InvasiveName == "Hemlock Woolly Adelgid")
 
 ```{r}
 #| fig-width: 10
+#| fig-alt: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont showing a overwelming majority of visual survey sucess followed by unspeified and aeriel survey check"
 #| fig-cap: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by survey type. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"
+
 
 HWA_invasive |>
   ggplot(aes(x = SurveyType)) +
