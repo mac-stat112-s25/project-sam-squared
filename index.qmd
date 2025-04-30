@@ -110,7 +110,7 @@ invasive_boundaries |>
   geom_sf(aes(color = year),
           size = 3,
           alpha = 0.5) +
-  labs(title = "Hemlock Woolly Adelgid sightings in Vermont", color = "Invasive species", y = "Latitude", x = "Longitude", subtitle = "Individual sightings over time") +
+  labs(title = "Hemlock Woolly Adelgid sightings in Vermont", color = "Year", y = "Latitude", x = "Longitude", subtitle = "Individual sightings over time") +
   scale_color_viridis_d() +
   theme_void()
 ```
