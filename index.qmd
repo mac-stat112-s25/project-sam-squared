@@ -13,6 +13,7 @@ library(rnaturalearth)
 library(sf)
 library(RColorBrewer)
 library(viridisLite)
+library(leaflet)
 ```
 
 ```{r}
@@ -118,12 +119,42 @@ As this map makes clear, Hemlock Woolly Adelgid sightings were highly concentrat
 
 Article link: https://www.umass.edu/agriculture-food-environment/landscape/fact-sheets/hemlock-woolly-adelgid-frequently-asked-questions
 
-## How can we spot HWA?
-
 ```{r}
 HWA_invasive  <- Top_Invasive_Species|>
 filter(InvasiveName == "Hemlock Woolly Adelgid") 
 ```
+
+```{r}
+groups_all<-paste(
+  rep(2007:2023, 1)
+)
+```
+
+
+```{r}
+pal <- colorFactor(
+  palette = "magma",
+  domain = HWA_invasive$year,
+  ordered = FALSE
+  )
+
+  leaflet(data = HWA_invasive) |>
+  addTiles(group = "OSM (default)") |>
+  addProviderTiles(providers$CartoDB.Positron, group = "Positron (minimal)") |>
+  addProviderTiles(providers$Esri.WorldImagery, group = "World Imagery (satellite)") |>
+  addCircles(lng = ~Longitude, lat = ~Latitude, group = ~paste(year), color = ~pal(year)) |>
+  addLayersControl(
+    baseGroups = c(
+      "OSM (default)",
+      "Positron (minimal)",
+      "World Imagery (satellite)"
+    ),
+    overlayGroups = groups_all,
+    options = layersControlOptions(collapsed = FALSE)
+  )
+```
+
+## How can we spot HWA?
 
 ```{r}
 #| fig-width: 10
