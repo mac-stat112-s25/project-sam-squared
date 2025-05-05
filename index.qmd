@@ -1,12 +1,12 @@
 ---
 title: "Invasive Species Encounters in Vermont (2007-2023)"
 format: html
+echo: false
 ---
 
 ```{r}
 #| label: Initialize project
 #| warning: false
-#| code-fold: true
 library(tidyverse)
 library(here)
 library(rnaturalearth)
@@ -17,6 +17,7 @@ library(leaflet)
 ```
 
 ```{r}
+#| show_col_types: FALSE
 Invasive_Species <- read_csv(here("data", "Invasive_Species.csv"))
 # Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab
 ```
@@ -42,6 +43,8 @@ Invasive_Species |>
   coord_flip() +
   labs(x = "Invasive species name", y = "Number of recorded sightings", title = "Distribution of invasive species sightings in Vermont (2007-2023)")
 ```
+
+Here is the distribution of invasive species sightings in Vermont from 2007 to 2023, seperated by species name. As you can see, one species is over-represented in the data set: Hemlock Woolly Adelgid.
 
 ## What is Hemlock Wooly Adelgid?
 
