@@ -261,7 +261,7 @@ cookieconsent.run({
   
 
 
-</header><div class="cell">
+</header><div class="cell" data-show_col_types="false">
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 1078 Columns: 30
 ── Column specification ────────────────────────────────────────────────────────
@@ -288,6 +288,7 @@ dbl  (8): X, Y, ObservationID, Latitude, Longitude, GrossArea, InfestedArea,...
 </div>
 </div>
 </div>
+<p>Here is the distribution of invasive species sightings in Vermont from 2007 to 2023, seperated by species name. As you can see, one species is over-represented in the data set: Hemlock Woolly Adelgid.</p>
 </section><section id="what-is-hemlock-wooly-adelgid" class="level2" data-number="0.3"><h2 data-number="0.3" class="anchored" data-anchor-id="what-is-hemlock-wooly-adelgid">
 <span class="header-section-number">0.3</span> What is Hemlock Wooly Adelgid?</h2>
 <div class="cell">
@@ -1000,158 +1001,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-19"><a href="#cb4-19"></a><span class="in">```</span></span>
 <span id="cb4-20"><a href="#cb4-20"></a></span>
 <span id="cb4-23"><a href="#cb4-23"></a><span class="in">```{r}</span></span>
-<span id="cb4-24"><a href="#cb4-24"></a>Invasive_Species <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"Invasive_Species.csv"</span>))</span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="co"># Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab</span></span>
-<span id="cb4-26"><a href="#cb4-26"></a><span class="in">```</span></span>
-<span id="cb4-27"><a href="#cb4-27"></a></span>
-<span id="cb4-28"><a href="#cb4-28"></a><span class="fu">## Introduction</span></span>
-<span id="cb4-29"><a href="#cb4-29"></a></span>
-<span id="cb4-30"><a href="#cb4-30"></a>The goal of this project is to understand invasive species trends in Vermont and identify certain species that may be causing the most harm to native ecosystems.</span>
-<span id="cb4-31"><a href="#cb4-31"></a></span>
-<span id="cb4-32"><a href="#cb4-32"></a>This project utilizes data from the Vermont Center for Geographic Information (VCGI). </span>
-<span id="cb4-33"><a href="#cb4-33"></a></span>
-<span id="cb4-34"><a href="#cb4-34"></a>As of publishing, the data is hosted at this link:</span>
-<span id="cb4-35"><a href="#cb4-35"></a>https://catalog.data.gov/dataset/invasive-species-812ab </span>
-<span id="cb4-36"><a href="#cb4-36"></a></span>
-<span id="cb4-37"><a href="#cb4-37"></a><span class="fu">## Understanding invasive species</span></span>
-<span id="cb4-38"><a href="#cb4-38"></a></span>
-<span id="cb4-41"><a href="#cb4-41"></a><span class="in">```{r}</span></span>
-<span id="cb4-42"><a href="#cb4-42"></a><span class="co">#| fig-alt: "A bar graph showing the distribution of invasive species sightings by species name in Vermont from 2007 to 2023. The number of Hemlock Woolly Adelgid sightings far exceeds the count for every other species."</span></span>
-<span id="cb4-43"><a href="#cb4-43"></a><span class="co">#| fig-cap: "Bar graph of Vermont invasive species sightings by species name. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"</span></span>
-<span id="cb4-44"><a href="#cb4-44"></a></span>
-<span id="cb4-45"><a href="#cb4-45"></a>Invasive_Species <span class="sc">|&gt;</span></span>
-<span id="cb4-46"><a href="#cb4-46"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> InvasiveName)) <span class="sc">+</span></span>
-<span id="cb4-47"><a href="#cb4-47"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb4-48"><a href="#cb4-48"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb4-49"><a href="#cb4-49"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Invasive species name"</span>, <span class="at">y =</span> <span class="st">"Number of recorded sightings"</span>, <span class="at">title =</span> <span class="st">"Distribution of invasive species sightings in Vermont (2007-2023)"</span>)</span>
-<span id="cb4-50"><a href="#cb4-50"></a><span class="in">```</span></span>
-<span id="cb4-51"><a href="#cb4-51"></a></span>
-<span id="cb4-52"><a href="#cb4-52"></a><span class="fu">## What is Hemlock Wooly Adelgid?</span></span>
-<span id="cb4-53"><a href="#cb4-53"></a></span>
-<span id="cb4-56"><a href="#cb4-56"></a><span class="in">```{r}</span></span>
-<span id="cb4-57"><a href="#cb4-57"></a>TopInvasive <span class="ot">&lt;-</span> Invasive_Species <span class="sc">|&gt;</span></span>
-<span id="cb4-58"><a href="#cb4-58"></a>  <span class="fu">group_by</span>(InvasiveName) <span class="sc">|&gt;</span></span>
-<span id="cb4-59"><a href="#cb4-59"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span></span>
-<span id="cb4-60"><a href="#cb4-60"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">6</span>)</span>
-<span id="cb4-61"><a href="#cb4-61"></a></span>
-<span id="cb4-62"><a href="#cb4-62"></a>Top_Invasive_Species <span class="ot">&lt;-</span> Invasive_Species <span class="sc">|&gt;</span></span>
-<span id="cb4-63"><a href="#cb4-63"></a>  <span class="fu">inner_join</span>(TopInvasive, <span class="at">by =</span> <span class="fu">join_by</span>(InvasiveName)) <span class="sc">|&gt;</span></span>
-<span id="cb4-64"><a href="#cb4-64"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">str_sub</span>(ObservationDate, <span class="sc">-</span><span class="dv">4</span>, <span class="fu">str_length</span>(ObservationDate)))</span>
-<span id="cb4-65"><a href="#cb4-65"></a><span class="in">```</span></span>
-<span id="cb4-66"><a href="#cb4-66"></a></span>
-<span id="cb4-69"><a href="#cb4-69"></a><span class="in">```{r}</span></span>
-<span id="cb4-70"><a href="#cb4-70"></a><span class="co">#| fig-alt: "Bar graph of invasive species sightings in Vermont, categorized by 'plant description' and colored by species. 'NA' is the largest category. 'Hemlock Woolly Adelgild' is the most represented species, and it belongs to the 'NA' category."</span></span>
-<span id="cb4-71"><a href="#cb4-71"></a><span class="co">#| fig-cap: "Bar graph of invasive species sightings in Vermont, categorized by 'plant description' and colored by species. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"</span></span>
-<span id="cb4-72"><a href="#cb4-72"></a></span>
-<span id="cb4-73"><a href="#cb4-73"></a>Top_Invasive_Species <span class="sc">|&gt;</span></span>
-<span id="cb4-74"><a href="#cb4-74"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PlantDescription, <span class="at">fill =</span> InvasiveName)) <span class="sc">+</span></span>
-<span id="cb4-75"><a href="#cb4-75"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb4-76"><a href="#cb4-76"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb4-77"><a href="#cb4-77"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Plant description"</span>, <span class="at">y =</span> <span class="st">"Number of sightings"</span>, <span class="at">fill =</span> <span class="st">"Species"</span>)</span>
-<span id="cb4-78"><a href="#cb4-78"></a><span class="in">```</span></span>
-<span id="cb4-79"><a href="#cb4-79"></a></span>
-<span id="cb4-80"><a href="#cb4-80"></a>As you can see, Hemlock Woolly Adelgid, or HWA, is categorized under the label "NA." This is because it isn't a plant at all! HWA is actually an aphid-like insect native to East Asia. According to the Vermont Department of Forests, Parks and Recreation, HWA can infest and kill native Eastern Hemlock trees, wreaking havoc on local ecosystems. HWA uses its long mouthparts to suck out a tree's starches, preventing the tree from delivering nutrients to its branches and needles.</span>
-<span id="cb4-81"><a href="#cb4-81"></a></span>
-<span id="cb4-82"><a href="#cb4-82"></a>Eastern Hemlock trees are important to North American ecosystems for a number of reasons. The evergreen trees act as year-round shelters for a variety of species, from lichens on the forest floor to warblers and owls in the canopy. Local deer and moose populations also rely on hemlock needles for nutrition. Additionally, the trees' thick foliage create shade, helping regulate temperatures in terrestrial and aquatic environments.</span>
-<span id="cb4-83"><a href="#cb4-83"></a></span>
-<span id="cb4-84"><a href="#cb4-84"></a>Further reading:</span>
-<span id="cb4-85"><a href="#cb4-85"></a>https://fpr.vermont.gov/sites/fpr/files/Forest_and_Forestry/Forest_Health/Library/VTFPR_HWAinVT_RecommendationsforLandownerResponse.pdf </span>
-<span id="cb4-86"><a href="#cb4-86"></a>https://dec.ny.gov/nature/animals-fish-plants/insects-and-other-species/hemlock-woolly-adelgid </span>
-<span id="cb4-87"><a href="#cb4-87"></a></span>
-<span id="cb4-90"><a href="#cb4-90"></a><span class="in">```{r}</span></span>
-<span id="cb4-91"><a href="#cb4-91"></a><span class="co">#| fig-alt: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by year. The majority of HWA sightings occurred in 2012, 2016, 2017, 2020, and 2022."</span></span>
-<span id="cb4-92"><a href="#cb4-92"></a><span class="co">#| fig-cap: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by year. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"</span></span>
-<span id="cb4-93"><a href="#cb4-93"></a></span>
-<span id="cb4-94"><a href="#cb4-94"></a>Top_Invasive_Species <span class="sc">|&gt;</span></span>
-<span id="cb4-95"><a href="#cb4-95"></a>  <span class="fu">filter</span>(InvasiveName <span class="sc">==</span> <span class="st">"Hemlock Woolly Adelgid"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-96"><a href="#cb4-96"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year)) <span class="sc">+</span></span>
-<span id="cb4-97"><a href="#cb4-97"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb4-98"><a href="#cb4-98"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Hemlock Woolly Adelgid sightings"</span>, <span class="at">y =</span> <span class="st">"Number of Sightings"</span>, <span class="at">fill =</span> <span class="st">"Species"</span>)</span>
-<span id="cb4-99"><a href="#cb4-99"></a><span class="in">```</span></span>
-<span id="cb4-100"><a href="#cb4-100"></a></span>
-<span id="cb4-101"><a href="#cb4-101"></a><span class="fu">## Mapping Hemlock Woolly Adegild sightings</span></span>
-<span id="cb4-102"><a href="#cb4-102"></a></span>
-<span id="cb4-105"><a href="#cb4-105"></a><span class="in">```{r}</span></span>
-<span id="cb4-106"><a href="#cb4-106"></a>invasive_boundaries <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">"data/Invasive_Species_Shapefiles"</span>, <span class="st">"Invasive_Species.dbf"</span>))</span>
-<span id="cb4-107"><a href="#cb4-107"></a><span class="in">```</span></span>
-<span id="cb4-108"><a href="#cb4-108"></a></span>
-<span id="cb4-111"><a href="#cb4-111"></a><span class="in">```{r}</span></span>
-<span id="cb4-112"><a href="#cb4-112"></a><span class="co"># Shapemap of Vermont counties</span></span>
-<span id="cb4-113"><a href="#cb4-113"></a>vt_boundaries <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">"data/VT_County_Shapefiles"</span>, <span class="st">"FS_VCGI_OPENDATA_Boundary_BNDHASH_poly_counties_SP_v1.dbf"</span>))</span>
-<span id="cb4-114"><a href="#cb4-114"></a><span class="in">```</span></span>
-<span id="cb4-115"><a href="#cb4-115"></a></span>
-<span id="cb4-118"><a href="#cb4-118"></a><span class="in">```{r}</span></span>
-<span id="cb4-119"><a href="#cb4-119"></a><span class="co">#| fig-alt: "A point map showing Hemlock Woolly Adelgid sightings in Vermont. The points are colored based on the year of sighting. From 2007-2019, HWA was only found in the southeast corner of Vermont. Since 2020, however, HWA has been spotted at various locations across the entire state."</span></span>
-<span id="cb4-120"><a href="#cb4-120"></a><span class="co">#| fig-cap: "Point map of Hemlock Woolly Adelgid sightings in Vermont (2007-2023). Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"</span></span>
-<span id="cb4-121"><a href="#cb4-121"></a></span>
-<span id="cb4-122"><a href="#cb4-122"></a><span class="co"># Spatial point map of invasive species encounters</span></span>
-<span id="cb4-123"><a href="#cb4-123"></a>invasive_boundaries <span class="sc">|&gt;</span></span>
-<span id="cb4-124"><a href="#cb4-124"></a>  <span class="fu">mutate</span>(<span class="at">GrossArea =</span> <span class="fu">as.numeric</span>(GrossArea)) <span class="sc">|&gt;</span></span>
-<span id="cb4-125"><a href="#cb4-125"></a>  <span class="fu">inner_join</span>(Top_Invasive_Species) <span class="sc">|&gt;</span></span>
-<span id="cb4-126"><a href="#cb4-126"></a>  <span class="fu">filter</span>(InvasiveNa <span class="sc">==</span> <span class="st">"Hemlock Woolly Adelgid"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-127"><a href="#cb4-127"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb4-128"><a href="#cb4-128"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> vt_boundaries) <span class="sc">+</span></span>
-<span id="cb4-129"><a href="#cb4-129"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> year),</span>
-<span id="cb4-130"><a href="#cb4-130"></a>          <span class="at">size =</span> <span class="dv">3</span>,</span>
-<span id="cb4-131"><a href="#cb4-131"></a>          <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb4-132"><a href="#cb4-132"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Hemlock Woolly Adelgid sightings in Vermont"</span>, <span class="at">color =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Latitude"</span>, <span class="at">x =</span> <span class="st">"Longitude"</span>, <span class="at">subtitle =</span> <span class="st">"Individual sightings over time"</span>) <span class="sc">+</span></span>
-<span id="cb4-133"><a href="#cb4-133"></a>  <span class="fu">scale_color_viridis_d</span>() <span class="sc">+</span></span>
-<span id="cb4-134"><a href="#cb4-134"></a>  <span class="fu">theme_void</span>()</span>
-<span id="cb4-135"><a href="#cb4-135"></a><span class="in">```</span></span>
-<span id="cb4-136"><a href="#cb4-136"></a>As this map makes clear, Hemlock Woolly Adelgid sightings were highly concentrated in Windham County until 2020. Since then, it has been spotted in various locations across the state. This is likely due to a large infestation of HWA in Massachusetts which borders the county. According to an article by the University of Massachusetts (linked below), HWA landed in southern New England on the winds of a hurricane in 1980 from more southern states. It would make sense, then, that HWA reached Vermont by first travelling north through Massachusetts.</span>
-<span id="cb4-137"><a href="#cb4-137"></a></span>
-<span id="cb4-138"><a href="#cb4-138"></a>Article link: https://www.umass.edu/agriculture-food-environment/landscape/fact-sheets/hemlock-woolly-adelgid-frequently-asked-questions</span>
-<span id="cb4-139"><a href="#cb4-139"></a></span>
-<span id="cb4-142"><a href="#cb4-142"></a><span class="in">```{r}</span></span>
-<span id="cb4-143"><a href="#cb4-143"></a>HWA_invasive  <span class="ot">&lt;-</span> Top_Invasive_Species<span class="sc">|&gt;</span></span>
-<span id="cb4-144"><a href="#cb4-144"></a><span class="fu">filter</span>(InvasiveName <span class="sc">==</span> <span class="st">"Hemlock Woolly Adelgid"</span>) </span>
-<span id="cb4-145"><a href="#cb4-145"></a><span class="in">```</span></span>
-<span id="cb4-146"><a href="#cb4-146"></a></span>
-<span id="cb4-149"><a href="#cb4-149"></a><span class="in">```{r}</span></span>
-<span id="cb4-150"><a href="#cb4-150"></a>groups_all<span class="ot">&lt;-</span><span class="fu">paste</span>(</span>
-<span id="cb4-151"><a href="#cb4-151"></a>  <span class="fu">rep</span>(<span class="dv">2007</span><span class="sc">:</span><span class="dv">2023</span>, <span class="dv">1</span>)</span>
-<span id="cb4-152"><a href="#cb4-152"></a>)</span>
-<span id="cb4-153"><a href="#cb4-153"></a><span class="in">```</span></span>
-<span id="cb4-154"><a href="#cb4-154"></a></span>
-<span id="cb4-155"><a href="#cb4-155"></a></span>
-<span id="cb4-158"><a href="#cb4-158"></a><span class="in">```{r}</span></span>
-<span id="cb4-159"><a href="#cb4-159"></a>pal <span class="ot">&lt;-</span> <span class="fu">colorFactor</span>(</span>
-<span id="cb4-160"><a href="#cb4-160"></a>  <span class="at">palette =</span> <span class="st">"magma"</span>,</span>
-<span id="cb4-161"><a href="#cb4-161"></a>  <span class="at">domain =</span> HWA_invasive<span class="sc">$</span>year,</span>
-<span id="cb4-162"><a href="#cb4-162"></a>  <span class="at">ordered =</span> <span class="cn">FALSE</span></span>
-<span id="cb4-163"><a href="#cb4-163"></a>  )</span>
-<span id="cb4-164"><a href="#cb4-164"></a></span>
-<span id="cb4-165"><a href="#cb4-165"></a>  <span class="fu">leaflet</span>(<span class="at">data =</span> HWA_invasive) <span class="sc">|&gt;</span></span>
-<span id="cb4-166"><a href="#cb4-166"></a>  <span class="fu">addTiles</span>(<span class="at">group =</span> <span class="st">"OSM (default)"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-167"><a href="#cb4-167"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>CartoDB.Positron, <span class="at">group =</span> <span class="st">"Positron (minimal)"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-168"><a href="#cb4-168"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Esri.WorldImagery, <span class="at">group =</span> <span class="st">"World Imagery (satellite)"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-169"><a href="#cb4-169"></a>  <span class="fu">addCircles</span>(<span class="at">lng =</span> <span class="sc">~</span>Longitude, <span class="at">lat =</span> <span class="sc">~</span>Latitude, <span class="at">group =</span> <span class="sc">~</span><span class="fu">paste</span>(year), <span class="at">color =</span> <span class="sc">~</span><span class="fu">pal</span>(year)) <span class="sc">|&gt;</span></span>
-<span id="cb4-170"><a href="#cb4-170"></a>  <span class="fu">addLayersControl</span>(</span>
-<span id="cb4-171"><a href="#cb4-171"></a>    <span class="at">baseGroups =</span> <span class="fu">c</span>(</span>
-<span id="cb4-172"><a href="#cb4-172"></a>      <span class="st">"OSM (default)"</span>,</span>
-<span id="cb4-173"><a href="#cb4-173"></a>      <span class="st">"Positron (minimal)"</span>,</span>
-<span id="cb4-174"><a href="#cb4-174"></a>      <span class="st">"World Imagery (satellite)"</span></span>
-<span id="cb4-175"><a href="#cb4-175"></a>    ),</span>
-<span id="cb4-176"><a href="#cb4-176"></a>    <span class="at">overlayGroups =</span> groups_all,</span>
-<span id="cb4-177"><a href="#cb4-177"></a>    <span class="at">options =</span> <span class="fu">layersControlOptions</span>(<span class="at">collapsed =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb4-178"><a href="#cb4-178"></a>  )</span>
-<span id="cb4-179"><a href="#cb4-179"></a><span class="in">```</span></span>
-<span id="cb4-180"><a href="#cb4-180"></a></span>
-<span id="cb4-181"><a href="#cb4-181"></a><span class="fu">## How can we spot HWA?</span></span>
-<span id="cb4-182"><a href="#cb4-182"></a></span>
-<span id="cb4-185"><a href="#cb4-185"></a><span class="in">```{r}</span></span>
-<span id="cb4-186"><a href="#cb4-186"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb4-187"><a href="#cb4-187"></a><span class="co">#| fig-alt: "A bar graph showing Hemlock Woolly Adelgid sightings, categorized by survey type. The vast majority of HWA is found through visual surveys. The second most-represented category is 'Unspecificed,' meaning no survey type was recorded in the invasive species sighting report."</span></span>
-<span id="cb4-188"><a href="#cb4-188"></a><span class="co">#| fig-cap: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by survey type. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"</span></span>
-<span id="cb4-189"><a href="#cb4-189"></a></span>
-<span id="cb4-190"><a href="#cb4-190"></a>HWA_invasive <span class="sc">|&gt;</span></span>
-<span id="cb4-191"><a href="#cb4-191"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> SurveyType)) <span class="sc">+</span></span>
-<span id="cb4-192"><a href="#cb4-192"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb4-193"><a href="#cb4-193"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Hemlock Woolly Adelgid Sightings by Survey Type"</span>, <span class="at">x =</span> <span class="st">"Survey Type"</span>, <span class="at">y =</span> <span class="st">"Number of Surveys"</span>)</span>
-<span id="cb4-194"><a href="#cb4-194"></a><span class="in">```</span></span>
-<span id="cb4-195"><a href="#cb4-195"></a>Though we do not have data on the success rates of each survey type, we can assume that visual survey is a relatively effective survey type based on how many HWA have been spotted by using this method.</span>
-<span id="cb4-196"><a href="#cb4-196"></a></span>
-<span id="cb4-197"><a href="#cb4-197"></a>In order to track future HWA outbreaks, the Vermont state government should continue to fund visual surveys of HWA across the entire state.</span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#| show_col_types: FALSE</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a>Invasive_Species <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"Invasive_Species.csv"</span>))</span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="co"># Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="in">```</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="fu">## Introduction</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a></span>
+<span id="cb4-31"><a href="#cb4-31"></a>The goal of this project is to understand invasive species trends in Vermont and identify certain species that may be causing the most harm to native ecosystems.</span>
+<span id="cb4-32"><a href="#cb4-32"></a></span>
+<span id="cb4-33"><a href="#cb4-33"></a>This project utilizes data from the Vermont Center for Geographic Information (VCGI). </span>
+<span id="cb4-34"><a href="#cb4-34"></a></span>
+<span id="cb4-35"><a href="#cb4-35"></a>As of publishing, the data is hosted at this link:</span>
+<span id="cb4-36"><a href="#cb4-36"></a>https://catalog.data.gov/dataset/invasive-species-812ab </span>
+<span id="cb4-37"><a href="#cb4-37"></a></span>
+<span id="cb4-38"><a href="#cb4-38"></a><span class="fu">## Understanding invasive species</span></span>
+<span id="cb4-39"><a href="#cb4-39"></a></span>
+<span id="cb4-42"><a href="#cb4-42"></a><span class="in">```{r}</span></span>
+<span id="cb4-43"><a href="#cb4-43"></a><span class="co">#| fig-alt: "A bar graph showing the distribution of invasive species sightings by species name in Vermont from 2007 to 2023. The number of Hemlock Woolly Adelgid sightings far exceeds the count for every other species."</span></span>
+<span id="cb4-44"><a href="#cb4-44"></a><span class="co">#| fig-cap: "Bar graph of Vermont invasive species sightings by species name. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"</span></span>
+<span id="cb4-45"><a href="#cb4-45"></a></span>
+<span id="cb4-46"><a href="#cb4-46"></a>Invasive_Species <span class="sc">|&gt;</span></span>
+<span id="cb4-47"><a href="#cb4-47"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> InvasiveName)) <span class="sc">+</span></span>
+<span id="cb4-48"><a href="#cb4-48"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb4-49"><a href="#cb4-49"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb4-50"><a href="#cb4-50"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Invasive species name"</span>, <span class="at">y =</span> <span class="st">"Number of recorded sightings"</span>, <span class="at">title =</span> <span class="st">"Distribution of invasive species sightings in Vermont (2007-2023)"</span>)</span>
+<span id="cb4-51"><a href="#cb4-51"></a><span class="in">```</span></span>
+<span id="cb4-52"><a href="#cb4-52"></a></span>
+<span id="cb4-53"><a href="#cb4-53"></a>Here is the distribution of invasive species sightings in Vermont from 2007 to 2023, seperated by species name. As you can see, one species is over-represented in the data set: Hemlock Woolly Adelgid.</span>
+<span id="cb4-54"><a href="#cb4-54"></a></span>
+<span id="cb4-55"><a href="#cb4-55"></a><span class="fu">## What is Hemlock Wooly Adelgid?</span></span>
+<span id="cb4-56"><a href="#cb4-56"></a></span>
+<span id="cb4-59"><a href="#cb4-59"></a><span class="in">```{r}</span></span>
+<span id="cb4-60"><a href="#cb4-60"></a>TopInvasive <span class="ot">&lt;-</span> Invasive_Species <span class="sc">|&gt;</span></span>
+<span id="cb4-61"><a href="#cb4-61"></a>  <span class="fu">group_by</span>(InvasiveName) <span class="sc">|&gt;</span></span>
+<span id="cb4-62"><a href="#cb4-62"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-63"><a href="#cb4-63"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">6</span>)</span>
+<span id="cb4-64"><a href="#cb4-64"></a></span>
+<span id="cb4-65"><a href="#cb4-65"></a>Top_Invasive_Species <span class="ot">&lt;-</span> Invasive_Species <span class="sc">|&gt;</span></span>
+<span id="cb4-66"><a href="#cb4-66"></a>  <span class="fu">inner_join</span>(TopInvasive, <span class="at">by =</span> <span class="fu">join_by</span>(InvasiveName)) <span class="sc">|&gt;</span></span>
+<span id="cb4-67"><a href="#cb4-67"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">str_sub</span>(ObservationDate, <span class="sc">-</span><span class="dv">4</span>, <span class="fu">str_length</span>(ObservationDate)))</span>
+<span id="cb4-68"><a href="#cb4-68"></a><span class="in">```</span></span>
+<span id="cb4-69"><a href="#cb4-69"></a></span>
+<span id="cb4-72"><a href="#cb4-72"></a><span class="in">```{r}</span></span>
+<span id="cb4-73"><a href="#cb4-73"></a><span class="co">#| fig-alt: "Bar graph of invasive species sightings in Vermont, categorized by 'plant description' and colored by species. 'NA' is the largest category. 'Hemlock Woolly Adelgild' is the most represented species, and it belongs to the 'NA' category."</span></span>
+<span id="cb4-74"><a href="#cb4-74"></a><span class="co">#| fig-cap: "Bar graph of invasive species sightings in Vermont, categorized by 'plant description' and colored by species. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"</span></span>
+<span id="cb4-75"><a href="#cb4-75"></a></span>
+<span id="cb4-76"><a href="#cb4-76"></a>Top_Invasive_Species <span class="sc">|&gt;</span></span>
+<span id="cb4-77"><a href="#cb4-77"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PlantDescription, <span class="at">fill =</span> InvasiveName)) <span class="sc">+</span></span>
+<span id="cb4-78"><a href="#cb4-78"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb4-79"><a href="#cb4-79"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb4-80"><a href="#cb4-80"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Plant description"</span>, <span class="at">y =</span> <span class="st">"Number of sightings"</span>, <span class="at">fill =</span> <span class="st">"Species"</span>)</span>
+<span id="cb4-81"><a href="#cb4-81"></a><span class="in">```</span></span>
+<span id="cb4-82"><a href="#cb4-82"></a></span>
+<span id="cb4-83"><a href="#cb4-83"></a>As you can see, Hemlock Woolly Adelgid, or HWA, is categorized under the label "NA." This is because it isn't a plant at all! HWA is actually an aphid-like insect native to East Asia. According to the Vermont Department of Forests, Parks and Recreation, HWA can infest and kill native Eastern Hemlock trees, wreaking havoc on local ecosystems. HWA uses its long mouthparts to suck out a tree's starches, preventing the tree from delivering nutrients to its branches and needles.</span>
+<span id="cb4-84"><a href="#cb4-84"></a></span>
+<span id="cb4-85"><a href="#cb4-85"></a>Eastern Hemlock trees are important to North American ecosystems for a number of reasons. The evergreen trees act as year-round shelters for a variety of species, from lichens on the forest floor to warblers and owls in the canopy. Local deer and moose populations also rely on hemlock needles for nutrition. Additionally, the trees' thick foliage create shade, helping regulate temperatures in terrestrial and aquatic environments.</span>
+<span id="cb4-86"><a href="#cb4-86"></a></span>
+<span id="cb4-87"><a href="#cb4-87"></a>Further reading:</span>
+<span id="cb4-88"><a href="#cb4-88"></a>https://fpr.vermont.gov/sites/fpr/files/Forest_and_Forestry/Forest_Health/Library/VTFPR_HWAinVT_RecommendationsforLandownerResponse.pdf </span>
+<span id="cb4-89"><a href="#cb4-89"></a>https://dec.ny.gov/nature/animals-fish-plants/insects-and-other-species/hemlock-woolly-adelgid </span>
+<span id="cb4-90"><a href="#cb4-90"></a></span>
+<span id="cb4-93"><a href="#cb4-93"></a><span class="in">```{r}</span></span>
+<span id="cb4-94"><a href="#cb4-94"></a><span class="co">#| fig-alt: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by year. The majority of HWA sightings occurred in 2012, 2016, 2017, 2020, and 2022."</span></span>
+<span id="cb4-95"><a href="#cb4-95"></a><span class="co">#| fig-cap: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by year. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"</span></span>
+<span id="cb4-96"><a href="#cb4-96"></a></span>
+<span id="cb4-97"><a href="#cb4-97"></a>Top_Invasive_Species <span class="sc">|&gt;</span></span>
+<span id="cb4-98"><a href="#cb4-98"></a>  <span class="fu">filter</span>(InvasiveName <span class="sc">==</span> <span class="st">"Hemlock Woolly Adelgid"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-99"><a href="#cb4-99"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year)) <span class="sc">+</span></span>
+<span id="cb4-100"><a href="#cb4-100"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb4-101"><a href="#cb4-101"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Hemlock Woolly Adelgid sightings"</span>, <span class="at">y =</span> <span class="st">"Number of Sightings"</span>, <span class="at">fill =</span> <span class="st">"Species"</span>)</span>
+<span id="cb4-102"><a href="#cb4-102"></a><span class="in">```</span></span>
+<span id="cb4-103"><a href="#cb4-103"></a></span>
+<span id="cb4-104"><a href="#cb4-104"></a><span class="fu">## Mapping Hemlock Woolly Adegild sightings</span></span>
+<span id="cb4-105"><a href="#cb4-105"></a></span>
+<span id="cb4-108"><a href="#cb4-108"></a><span class="in">```{r}</span></span>
+<span id="cb4-109"><a href="#cb4-109"></a>invasive_boundaries <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">"data/Invasive_Species_Shapefiles"</span>, <span class="st">"Invasive_Species.dbf"</span>))</span>
+<span id="cb4-110"><a href="#cb4-110"></a><span class="in">```</span></span>
+<span id="cb4-111"><a href="#cb4-111"></a></span>
+<span id="cb4-114"><a href="#cb4-114"></a><span class="in">```{r}</span></span>
+<span id="cb4-115"><a href="#cb4-115"></a><span class="co"># Shapemap of Vermont counties</span></span>
+<span id="cb4-116"><a href="#cb4-116"></a>vt_boundaries <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">here</span>(<span class="st">"data/VT_County_Shapefiles"</span>, <span class="st">"FS_VCGI_OPENDATA_Boundary_BNDHASH_poly_counties_SP_v1.dbf"</span>))</span>
+<span id="cb4-117"><a href="#cb4-117"></a><span class="in">```</span></span>
+<span id="cb4-118"><a href="#cb4-118"></a></span>
+<span id="cb4-121"><a href="#cb4-121"></a><span class="in">```{r}</span></span>
+<span id="cb4-122"><a href="#cb4-122"></a><span class="co">#| fig-alt: "A point map showing Hemlock Woolly Adelgid sightings in Vermont. The points are colored based on the year of sighting. From 2007-2019, HWA was only found in the southeast corner of Vermont. Since 2020, however, HWA has been spotted at various locations across the entire state."</span></span>
+<span id="cb4-123"><a href="#cb4-123"></a><span class="co">#| fig-cap: "Point map of Hemlock Woolly Adelgid sightings in Vermont (2007-2023). Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"</span></span>
+<span id="cb4-124"><a href="#cb4-124"></a></span>
+<span id="cb4-125"><a href="#cb4-125"></a><span class="co"># Spatial point map of invasive species encounters</span></span>
+<span id="cb4-126"><a href="#cb4-126"></a>invasive_boundaries <span class="sc">|&gt;</span></span>
+<span id="cb4-127"><a href="#cb4-127"></a>  <span class="fu">mutate</span>(<span class="at">GrossArea =</span> <span class="fu">as.numeric</span>(GrossArea)) <span class="sc">|&gt;</span></span>
+<span id="cb4-128"><a href="#cb4-128"></a>  <span class="fu">inner_join</span>(Top_Invasive_Species) <span class="sc">|&gt;</span></span>
+<span id="cb4-129"><a href="#cb4-129"></a>  <span class="fu">filter</span>(InvasiveNa <span class="sc">==</span> <span class="st">"Hemlock Woolly Adelgid"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-130"><a href="#cb4-130"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb4-131"><a href="#cb4-131"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> vt_boundaries) <span class="sc">+</span></span>
+<span id="cb4-132"><a href="#cb4-132"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> year),</span>
+<span id="cb4-133"><a href="#cb4-133"></a>          <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb4-134"><a href="#cb4-134"></a>          <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb4-135"><a href="#cb4-135"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Hemlock Woolly Adelgid sightings in Vermont"</span>, <span class="at">color =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Latitude"</span>, <span class="at">x =</span> <span class="st">"Longitude"</span>, <span class="at">subtitle =</span> <span class="st">"Individual sightings over time"</span>) <span class="sc">+</span></span>
+<span id="cb4-136"><a href="#cb4-136"></a>  <span class="fu">scale_color_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb4-137"><a href="#cb4-137"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb4-138"><a href="#cb4-138"></a><span class="in">```</span></span>
+<span id="cb4-139"><a href="#cb4-139"></a>As this map makes clear, Hemlock Woolly Adelgid sightings were highly concentrated in Windham County until 2020. Since then, it has been spotted in various locations across the state. This is likely due to a large infestation of HWA in Massachusetts which borders the county. According to an article by the University of Massachusetts (linked below), HWA landed in southern New England on the winds of a hurricane in 1980 from more southern states. It would make sense, then, that HWA reached Vermont by first travelling north through Massachusetts.</span>
+<span id="cb4-140"><a href="#cb4-140"></a></span>
+<span id="cb4-141"><a href="#cb4-141"></a>Article link: https://www.umass.edu/agriculture-food-environment/landscape/fact-sheets/hemlock-woolly-adelgid-frequently-asked-questions</span>
+<span id="cb4-142"><a href="#cb4-142"></a></span>
+<span id="cb4-145"><a href="#cb4-145"></a><span class="in">```{r}</span></span>
+<span id="cb4-146"><a href="#cb4-146"></a>HWA_invasive  <span class="ot">&lt;-</span> Top_Invasive_Species<span class="sc">|&gt;</span></span>
+<span id="cb4-147"><a href="#cb4-147"></a><span class="fu">filter</span>(InvasiveName <span class="sc">==</span> <span class="st">"Hemlock Woolly Adelgid"</span>) </span>
+<span id="cb4-148"><a href="#cb4-148"></a><span class="in">```</span></span>
+<span id="cb4-149"><a href="#cb4-149"></a></span>
+<span id="cb4-152"><a href="#cb4-152"></a><span class="in">```{r}</span></span>
+<span id="cb4-153"><a href="#cb4-153"></a>groups_all<span class="ot">&lt;-</span><span class="fu">paste</span>(</span>
+<span id="cb4-154"><a href="#cb4-154"></a>  <span class="fu">rep</span>(<span class="dv">2007</span><span class="sc">:</span><span class="dv">2023</span>, <span class="dv">1</span>)</span>
+<span id="cb4-155"><a href="#cb4-155"></a>)</span>
+<span id="cb4-156"><a href="#cb4-156"></a><span class="in">```</span></span>
+<span id="cb4-157"><a href="#cb4-157"></a></span>
+<span id="cb4-158"><a href="#cb4-158"></a></span>
+<span id="cb4-161"><a href="#cb4-161"></a><span class="in">```{r}</span></span>
+<span id="cb4-162"><a href="#cb4-162"></a>pal <span class="ot">&lt;-</span> <span class="fu">colorFactor</span>(</span>
+<span id="cb4-163"><a href="#cb4-163"></a>  <span class="at">palette =</span> <span class="st">"magma"</span>,</span>
+<span id="cb4-164"><a href="#cb4-164"></a>  <span class="at">domain =</span> HWA_invasive<span class="sc">$</span>year,</span>
+<span id="cb4-165"><a href="#cb4-165"></a>  <span class="at">ordered =</span> <span class="cn">FALSE</span></span>
+<span id="cb4-166"><a href="#cb4-166"></a>  )</span>
+<span id="cb4-167"><a href="#cb4-167"></a></span>
+<span id="cb4-168"><a href="#cb4-168"></a>  <span class="fu">leaflet</span>(<span class="at">data =</span> HWA_invasive) <span class="sc">|&gt;</span></span>
+<span id="cb4-169"><a href="#cb4-169"></a>  <span class="fu">addTiles</span>(<span class="at">group =</span> <span class="st">"OSM (default)"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-170"><a href="#cb4-170"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>CartoDB.Positron, <span class="at">group =</span> <span class="st">"Positron (minimal)"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-171"><a href="#cb4-171"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Esri.WorldImagery, <span class="at">group =</span> <span class="st">"World Imagery (satellite)"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-172"><a href="#cb4-172"></a>  <span class="fu">addCircles</span>(<span class="at">lng =</span> <span class="sc">~</span>Longitude, <span class="at">lat =</span> <span class="sc">~</span>Latitude, <span class="at">group =</span> <span class="sc">~</span><span class="fu">paste</span>(year), <span class="at">color =</span> <span class="sc">~</span><span class="fu">pal</span>(year)) <span class="sc">|&gt;</span></span>
+<span id="cb4-173"><a href="#cb4-173"></a>  <span class="fu">addLayersControl</span>(</span>
+<span id="cb4-174"><a href="#cb4-174"></a>    <span class="at">baseGroups =</span> <span class="fu">c</span>(</span>
+<span id="cb4-175"><a href="#cb4-175"></a>      <span class="st">"OSM (default)"</span>,</span>
+<span id="cb4-176"><a href="#cb4-176"></a>      <span class="st">"Positron (minimal)"</span>,</span>
+<span id="cb4-177"><a href="#cb4-177"></a>      <span class="st">"World Imagery (satellite)"</span></span>
+<span id="cb4-178"><a href="#cb4-178"></a>    ),</span>
+<span id="cb4-179"><a href="#cb4-179"></a>    <span class="at">overlayGroups =</span> groups_all,</span>
+<span id="cb4-180"><a href="#cb4-180"></a>    <span class="at">options =</span> <span class="fu">layersControlOptions</span>(<span class="at">collapsed =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-181"><a href="#cb4-181"></a>  )</span>
+<span id="cb4-182"><a href="#cb4-182"></a><span class="in">```</span></span>
+<span id="cb4-183"><a href="#cb4-183"></a></span>
+<span id="cb4-184"><a href="#cb4-184"></a><span class="fu">## How can we spot HWA?</span></span>
+<span id="cb4-185"><a href="#cb4-185"></a></span>
+<span id="cb4-188"><a href="#cb4-188"></a><span class="in">```{r}</span></span>
+<span id="cb4-189"><a href="#cb4-189"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb4-190"><a href="#cb4-190"></a><span class="co">#| fig-alt: "A bar graph showing Hemlock Woolly Adelgid sightings, categorized by survey type. The vast majority of HWA is found through visual surveys. The second most-represented category is 'Unspecificed,' meaning no survey type was recorded in the invasive species sighting report."</span></span>
+<span id="cb4-191"><a href="#cb4-191"></a><span class="co">#| fig-cap: "Bar graph of Hemlock Woolly Adelgid sightings in Vermont, by survey type. Data source: Vermont Center for Geographic Information (VCGI), https://catalog.data.gov/dataset/invasive-species-812ab"</span></span>
+<span id="cb4-192"><a href="#cb4-192"></a></span>
+<span id="cb4-193"><a href="#cb4-193"></a>HWA_invasive <span class="sc">|&gt;</span></span>
+<span id="cb4-194"><a href="#cb4-194"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> SurveyType)) <span class="sc">+</span></span>
+<span id="cb4-195"><a href="#cb4-195"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb4-196"><a href="#cb4-196"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Hemlock Woolly Adelgid Sightings by Survey Type"</span>, <span class="at">x =</span> <span class="st">"Survey Type"</span>, <span class="at">y =</span> <span class="st">"Number of Surveys"</span>)</span>
+<span id="cb4-197"><a href="#cb4-197"></a><span class="in">```</span></span>
+<span id="cb4-198"><a href="#cb4-198"></a>Though we do not have data on the success rates of each survey type, we can assume that visual survey is a relatively effective survey type based on how many HWA have been spotted by using this method.</span>
+<span id="cb4-199"><a href="#cb4-199"></a></span>
+<span id="cb4-200"><a href="#cb4-200"></a>In order to track future HWA outbreaks, the Vermont state government should continue to fund visual surveys of HWA across the entire state.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
