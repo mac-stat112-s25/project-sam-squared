@@ -1,6 +1,6 @@
 
 ---
-title: "SamF_Teamwork"
+title: "Sam Fackenthal - Effective Teamwork"
 format: html
 ---
 
