@@ -172,3 +172,12 @@ HWA_invasive |>
 Though we do not have data on the success rates of each survey type, we can assume that visual survey is a relatively effective survey type based on how many HWA have been spotted by using this method.
 
 In order to track future HWA outbreaks, the Vermont state government should continue to fund visual surveys of HWA across the entire state.
+
+## Video Presentation
+
+{{< video https://www.youtube.com/watch?v=FiIK5gTDW_g 
+    title = "COMP 112 HWA Presentation" 
+    >}}
+
+Presentation link:
+https://docs.google.com/presentation/d/17HYIA69UMpdQvEZpPHEcS0RqEA-9IbiF6P2_VRroUU0/edit?usp=sharing 
