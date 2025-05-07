@@ -11,8 +11,8 @@ project:
 
 
 book:
-  title: "project title"
-  author: ["student 1 first and last name", "student 2 first and last name", "student 3 first and last name"]
+  title: "Invasive Species Encounters and Treatments in Vermont"
+  author: ["Samuel Kennedy", "Samuel Fackenthal"]
   date: today  # use today to update date published based on last time project was edited
   date-format: full
   # favicon: images/logo.png
@@ -39,9 +39,13 @@ book:
     - index.qmd
 
   appendices:
-  - src/appx/proposal.qmd
-  - src/appx/case-study.qmd
-
+    - src/appx/proposal.qmd
+    - src/appx/case-study.qmd
+    - src/appx/process.qmd
+    - src/appx/et/sam-k.qmd
+    - src/appx/et/sam-f.qmd
+    - src/appx/eda/sam-k.qmd
+    - src/appx/eda/sam-f.qmd
 
 
 format:
@@ -59,6 +63,7 @@ format:
     code-copy: true
     code-link: true
     code-line-numbers: true
+    code-fold: true
     code-block-bg: true
     code-block-border-left: "#1482FA"
     code-tools: true

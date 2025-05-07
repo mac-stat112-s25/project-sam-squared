@@ -1,0 +1,63 @@
+---
+title: "SamF - Exploratory Data Analysis (EDA)"
+format: html
+---
+```{r}
+#| label: Initialize project
+#| warning: false
+library(tidyverse)
+library(here)
+```
+
+```{r}
+Invasive_Species <- read_csv(here("data", "Invasive_Species.csv"))
+View(Invasive_Species)
+
+# Invasive_Species_13  <- Filter (Invasive_Species,
+```
+```{r}
+Invasive_Species |>
+  mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate))) |>
+  ggplot(aes(x = year)) +
+  geom_bar() +
+  labs(x = "Year", title = "Invasive species encounters in Vermont (2007-2023)")
+```
+```{r}
+Invasive_Species |>
+  
+  mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate))) |>
+  filter(InvasiveName=="Common buckthorn" ) |>
+  ggplot(aes(x = year)) +
+  geom_bar() +
+  labs(x = "Year", title = "Common buckthorn encounters in Vermont (2007-2023)")
+```
+```{r}
+Invasive_Species |>
+  
+  mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate))) |>
+  filter(InvasiveName=="Japanese knotweed" ) |>
+  ggplot(aes(x = year)) +
+  geom_bar() +
+  labs(x = "Year", title = "Japanese knotweed encounters in Vermont (2007-2023)")
+```
+```{r}
+Invasive_Species |>
+  
+  mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate))) |>
+  filter(InvasiveName=="Amur honeysuckle" ) |>
+  ggplot(aes(x = year)) +
+  geom_bar() +
+  labs(x = "Year", title = "Amur honeysuckle encounters in Vermont (2007-2023)")
+```
+```{r}
+Invasive_Species |>
+  
+  mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate))) |>
+  filter(InvasiveName=="Hemlock Woolly Adelgid" ) |>
+  ggplot(aes(x = year)) +
+  geom_bar() +
+  labs(x = "Year", title = "Hemlock Woolly Adelgid encounters in Vermont (2007-2023)")
+# THIS IS AN ANIMAL?!?!?!?
+```
+Initial notes: (what to do this weekend)
+

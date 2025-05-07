@@ -1,0 +1,78 @@
+---
+title: "SamK - Exploratory Data Analysis (EDA)"
+format: html
+---
+
+```{r}
+#| label: Initialize project
+#| warning: false
+library(tidyverse)
+library(here)
+library(rnaturalearth)
+library(sf)
+library(RColorBrewer)
+library(viridisLite)
+```
+
+```{r}
+Invasive_Species <- read_csv(here("data", "Invasive_Species.csv"))
+```
+
+```{r}
+nrow(Invasive_Species) # Number of columns in data set
+ncol(Invasive_Species) # Number of rows in data set
+```
+
+```{r}
+Invasive_Species |>
+  ls()
+```
+
+```{r}
+# Summary of data set
+summary(Invasive_Species)
+```
+
+```{r}
+Invasive_Species |>
+  filter(!is.na(TreatmentType)) |>
+  mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate))) |>
+  ggplot(aes(x = TreatmentType, fill = year)) +
+  geom_bar() +
+  labs(x = "Treatment type", title = "Treatment of invasive species in Vermont")
+```
+
+```{r}
+Invasive_Species |>
+  mutate(year = str_sub(ObservationDate, -4, str_length(ObservationDate))) |>
+  ggplot(aes(x = year)) +
+  geom_bar() +
+  labs(x = "Year", title = "Invasive species encounters in Vermont (2007-2023)")
+```
+
+```{r}
+# List of all invasive species recorded in data set
+Invasive_Species |>
+  select(InvasiveName) |>
+  distinct()
+```
+
+```{r}
+invasive_boundaries <- read_sf(here("data/Invasive_Species_Shapefiles", "Invasive_Species.dbf"))
+```
+
+```{r}
+# Spatial point map of invasive species encounters
+ggplot() +
+  geom_sf(data = invasive_boundaries)
+```
+
+```{r}
+vt_boundaries <- read_sf(here("data/VT_County_Shapefiles", "FS_VCGI_OPENDATA_Boundary_BNDHASH_poly_counties_SP_v1.dbf"))
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = vt_boundaries)
+```
+
